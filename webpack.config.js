@@ -9,7 +9,9 @@ module.exports = {
     library: name,
     libraryTarget: "commonjs-module"
   },
-
+  externals: {
+    'react': 'commonjs react'
+  },
   module: {
     rules: [
       {
