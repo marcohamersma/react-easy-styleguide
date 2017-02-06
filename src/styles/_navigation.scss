@@ -1,0 +1,66 @@
+.styleGuideNav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: $styleguide-width;
+  padding: $padding;
+  background-color: white;
+
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  &__title {
+    font-size: 20px;
+    font-weight: bolder;
+    text-align: center;
+    text-transform: uppercase;
+    margin-bottom: $padding;
+    display: block;
+    color: black;
+  }
+
+  &__list {
+    margin: $padding 0;
+  }
+
+
+  &__list-item {
+    margin: 15px 0;
+    background: $background;
+
+    &--sub {
+      margin: 0;
+    }
+  }
+
+  &__variationsList {
+    margin: 0 0 0 $padding;
+  }
+
+  &__component {
+    border: 1px solid $accent;
+    border-radius: 10px;
+    background: white;
+    margin: 5px 0;
+    display: block;
+    padding: 10px;
+
+    text-decoration: none;
+    color: black;
+
+    &--sub { padding: 5px 10px; }
+
+    &.sg-active {
+      font-weight: bold;
+    }
+
+    // &:hover, &:active {
+    //   text-decoration: none;
+    // }
+
+  }
+
+}

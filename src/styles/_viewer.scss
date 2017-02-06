@@ -1,0 +1,32 @@
+@import 'shared';
+
+.styleGuideViewer {
+  color: black;
+
+  &__description {
+    color: #86918C;
+    margin-bottom: $padding;
+  }
+
+  &__propTypes {
+    margin: $padding 0;
+
+    caption {
+      text-align: left;
+    }
+
+    td {
+      padding: 0 5px 5px 0;
+    }
+
+    td.sg-current {
+      color: $mid;
+    }
+  }
+
+  &__item-container {
+    padding: $padding / 2;
+    border: 1px solid $grey;
+    margin: ($padding / 2) 0;
+  }
+}

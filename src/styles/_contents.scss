@@ -1,0 +1,13 @@
+.styleGuide__contents {
+  padding: 0 $padding;
+  margin-top: -$padding;
+
+  a {
+    text-decoration: none;
+    color: $accent;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

@@ -79,8 +79,10 @@ export function list() { return components };
 
 export function get(componentSlug, variation) {
   const component = components.find( c => c.slug === componentSlug);
+  if (!component) return {};
+
   const variations = variation
-          ? component.variations.find( v => v.slug === variation)
+          ? [component.variations.find( v => v.slug === variation)]
           : component.variations
 
   return { component, variations };

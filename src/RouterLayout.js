@@ -2,6 +2,10 @@ import React from 'react';
 import * as styleGuide from './index';
 import Navigation from './Navigation';
 import Viewer from './Viewer';
+import bemHelper from 'react-bem-helper';
+import './styles/styles.scss';
+
+const BEMClassName = new bemHelper('styleGuide');
 
 const RouterLayout = (props) => {
   const components = styleGuide.list();
@@ -9,13 +13,15 @@ const RouterLayout = (props) => {
 
   const name = 'Your Simple-Styleguide';
   return (
-    <div>
+    <div {...BEMClassName()}>
       <Navigation components={components} name={name}/>
-      <div className="styleGuide__contents">
-        <h1>{name}</h1>
-
+      <div {...BEMClassName('contents')}>
         { !components.length
-          ? <div>Install successfull, now go add some <code>component.info.js</code> files</div>
+          ? (
+              <div {...BEMClassName('panel')}>
+                Install successfull, now go add some <code>component.info.js</code> files
+              </div>
+            )
           : <Viewer component={component} variation={variation} />
         }
       </div>
