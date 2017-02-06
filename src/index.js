@@ -43,12 +43,10 @@ function matchPropTypes(userPropTypes) {
       } else if (reactPropType.isRequired === value) {
         matchedProp = { name: propName, isRequired: true };
         break;
-      } else {
-        matchedProp = 'unknown';
       }
     }
 
-    matches[key] = matchedProp;
+    matches[key] = matchedProp || { name: 'unknown' };
 
     return matches;
   }, {});
