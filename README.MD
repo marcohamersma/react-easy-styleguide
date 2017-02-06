@@ -1,9 +1,13 @@
-# Simple stylesheet
+# Simple styleGuide
+This is a tool to easily get a styleguide integrated into your project. It works great with `create-react-app`.
+
+_Although I'm currently using this in one of my projects, It's not extensively tested, which is why it's not on NPM as of yet. You should be able to install it anyway by doing `npm install marcohamersma/simple-styleguide`_
+
 ## Requirements
-- Webpack + es6 + react presets
+The module relies on Webpack's `require.context`, and therefore it needs webpack. I think that should be the only required thing, but let me know in the Issues if there's a problem.
 
 ## Setup with React-Router
-React router is recommended, but not necessary.
+React router is recommended, but [#setup-without-react-router](not necessary).
 
 To start, we need to tell the styleguide which components to load, it expects a `component.info.js` file to be present for every component in your styleguide, so we use WebPack's requireContext to load them dynamically. You might want to do this in the file where you declare your routes.
 
@@ -34,6 +38,8 @@ ReactDOM.render(
 The second argument to the `StyleGuide`/`RouterLayout` method is optional, but allows for the (limited) detection of PropTypes for your components.
 
 If you start your app now, and go to `/styleguide`, you should be able to see the styleguide running.
+
+## Adding components to your styleguide
 
 ```js
 // The component you want to add
@@ -79,3 +85,40 @@ import { register, action } from 'simple-styleguide';
   }
 },
 ```
+
+## Setup without React-Router
+After initializing a require context, call `StyleGuide.init()`:
+
+```js
+import { init, list, Viewer } from 'simple-styleguide';
+import { PropTypes, Component } from 'react';
+
+// Assuming you have a /components folder,
+const styleguideContext = require.context('./components/', true, /.info.js$/)
+
+init(styleguideContext);
+
+// Example component
+class StyleGuide extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      component: 'Button',
+      variation: null
+    }
+  }
+
+  render() {
+    return (
+      <Viewer
+        component={this.state.component}
+        variation={this.state.variation}
+      />
+    )
+  }
+}
+```
+
+By manipulating the state or otherwise changing the props passed to `Viewer`, you can show what component will be rendered out. If `variation` is blank, it will show all variations.
+
+For a list of all components, you can call `simplestyleGuide.list()`. You can then make navigation of some sorts that will manipulate the state for a component like the one above.
