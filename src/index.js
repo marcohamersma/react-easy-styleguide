@@ -2,8 +2,10 @@ import marked from 'marked';
 import slug from 'slug';
 import { PropTypes } from 'react';
 import RouterLayout from './RouterLayout';
+import Viewer from './Viewer';
 
 export { RouterLayout as RouterLayout };
+export { Viewer as Viewer };
 
 const components = [];
 
