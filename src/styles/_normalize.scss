@@ -3,31 +3,31 @@ body { margin: 0; }
 @mixin normalize {
   /*! normalize.css v5.0.0 | MIT License | github.com/necolas/normalize.css */
 
-  margin: 0;
-
   * {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    vertical-align: baseline;
     box-sizing: border-box;
   }
 
-  h1, h2, h3 {
-    margin: 0;
-    line-height: 1.2;
+  body {
+    line-height: 1;
   }
 
-  h1 {
-    font-size: 32px;
+  blockquote, q {
+    quotes: none;
   }
 
-  h2 {
-    font-size: 20px;
-    margin-bottom: 5px;
+  blockquote:before, blockquote:after,
+  q:before, q:after {
+    content: '';
+    content: none;
   }
 
-  p {
-    margin: 0 0 1.5em 0;
+  table {
+    border-collapse: collapse;
+    border-spacing: 0;
   }
-  p:last-child {
-    margin: 0;
-  }
-
 }
