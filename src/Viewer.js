@@ -47,23 +47,27 @@ const Viewer = props => {
   if (!component) return NotFound();
 
   const currentVariation = props.variation && variations[0];
+  const description = currentVariation && currentVariation.description
+                        ? currentVariation.description
+                        : component.readme;
 
   return (
     <div {...BEMClassName()}>
       <section className="styleGuide__panel">
-        <h1>{component.name}</h1>
+        <h1>
+          { component.name }
+          { currentVariation ? ' — ' + currentVariation.name : null }
+        </h1>
+
         <div
            {...BEMClassName('description')}
-          dangerouslySetInnerHTML={{__html: component.readme}}
+          dangerouslySetInnerHTML={{__html: description}}
         />
 
         <table {...BEMClassName('propTypes')}>
           <caption><h2>
             PropTypes
-            { currentVariation
-              ? ' & props for ' + currentVariation.name
-              : null
-            }
+            { currentVariation ? ' & props' : null }
           </h2></caption>
           <tbody>
             { map(component.propTypes, (t,n) => PropTypeRow(t, n, currentVariation) )}
@@ -71,13 +75,13 @@ const Viewer = props => {
         </table>
       </section>
 
-      { currentVariation
-        ? null
-        : <h2>Variations:</h2>
-      }
+      <h2 {...BEMClassName('variationsHeader')}>
+        { currentVariation ? 'Output' : 'Variations' }:
+      </h2>
+
 
       { variations.map(
-        v => Variation(v, component.Component)
+        v => Variation(v, component.Component, !!currentVariation)
       )}
     </div>
   );

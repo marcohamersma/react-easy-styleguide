@@ -29,4 +29,8 @@
     border: 1px solid $grey;
     margin: ($padding / 2) 0;
   }
+
+  &__variationsHeader {
+    text-align: center;
+  }
 }
