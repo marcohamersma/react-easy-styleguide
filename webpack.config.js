@@ -7,10 +7,11 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
     filename: name + '.js',
     library: name,
-    libraryTarget: "commonjs-module"
+    libraryTarget: "umd"
   },
   externals: {
-    'react': 'commonjs react'
+    'react': 'commonjs react',
+    'react-router': 'commonjs react-router'
   },
   module: {
     rules: [

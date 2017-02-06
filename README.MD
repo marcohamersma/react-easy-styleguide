@@ -2,25 +2,46 @@
 ## Requirements
 - Webpack + es6 + react presets
 
-## Setup
-1. In the place where you want to list your components, paste the following code:
-```js
-import * as styleGuide from 'simple-styleguide';
+## Setup with React-Router
+React router is recommended, but not necessary.
 
-// Assuming you have a /components folder, change the path if you need to
-const req = require.context('./components/', true, /.info.js$/)
-styleGuide.init(req);
+To start, we need to tell the styleguide which components to load, it expects a `component.info.js` file to be present for every component in your styleguide, so we use WebPack's requireContext to load them dynamically. You might want to do this in the file where you declare your routes.
+
+```js
+// Assuming you have a /components folder,
+const styleguideContext = require.context('./components/', true, /.info.js$/)
 ```
 
-2. For all components you want to have in your styleguide, create a `component.info.js` file like this:
+Then require the RouterLayout, and add a route for the styleguide:
+
 ```js
+import { RouterLayout as StyleGuide } from 'simple-styleguide';
+
+ReactDOM.render(
+  <Router history={browserHistory}>
+    <Route path="/" component={App}>
+      …
+    </Route>
+
+    <Route
+      path="/styleguide(/:component(/:variation))"
+      component={StyleGuide(styleguideContext)}
+    />
+  </Router>
+);
+```
+
+If you start your app now, and go to `/styleguide`, you should be able to see the styleguide running.
+
+```js
+// The component you want to add
 import Button from './Button';
 import { register } from 'simple-styleguide';
 
 // Register takes 3 parameters:
 register(
   // 1. The component
-  Button, 
+  Button,
   // 2. A component description (supports Markdown)
   ` How do you like this description? `,
   // 3. A list of different variations for each component,
@@ -34,7 +55,7 @@ register(
       }
     },
   ]
-])
+)
 ```
 
 ### Action helper

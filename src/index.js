@@ -1,8 +1,9 @@
 import marked from 'marked';
+import slug from 'slug';
 import { PropTypes } from 'react';
-import List from './List';
+import RouterLayout from './RouterLayout';
 
-export { List as List };
+export { RouterLayout as RouterLayout };
 
 const components = [];
 
@@ -17,7 +18,8 @@ function getVariations(variations) {
   return (
     hasVariations ? variations : defaultVariations
   ).map( v => Object.assign({}, v, {
-    description: marked(v.description || '')
+    description: marked(v.description || ''),
+    slug: slug(v.name)
   }))
 }
 
@@ -55,8 +57,11 @@ export function init(context) {
 }
 
 export function register(component, readme, variations) {
+  const name = component.displayName || component.name;
+
   components.push({
-    name: component.displayName || component.name,
+    name: name,
+    slug: slug(name),
     readme: marked(readme),
     propTypes: matchPropTypes(component.propTypes),
     variations: getVariations(variations),
@@ -68,4 +73,13 @@ export const action = (message) => function() {
   console.log('[ACTION]', message, arguments)
 };
 
-export function get() { return components };
+export function list() { return components };
+
+export function get(componentSlug, variation) {
+  const component = components.find( c => c.slug === componentSlug);
+  const variations = variation
+          ? component.variations.find( v => v.slug === variation)
+          : component.variations
+
+  return { component, variations };
+};
