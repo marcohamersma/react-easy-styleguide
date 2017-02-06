@@ -23,8 +23,8 @@ const RouterLayout = (props) => {
   );
 }
 
-export default context => {
-  styleGuide.init(context);
+export default (context, propTypes) => {
+  styleGuide.init(context, propTypes);
 
   return RouterLayout;
 }

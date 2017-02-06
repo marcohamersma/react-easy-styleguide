@@ -16,6 +16,7 @@ Then require the RouterLayout, and add a route for the styleguide:
 
 ```js
 import { RouterLayout as StyleGuide } from 'simple-styleguide';
+import { PropTypes } from 'react';
 
 ReactDOM.render(
   <Router history={browserHistory}>
@@ -25,11 +26,12 @@ ReactDOM.render(
 
     <Route
       path="/styleguide(/:component(/:variation))"
-      component={StyleGuide(styleguideContext)}
+      component={StyleGuide(styleguideContext, React.PropTypes)}
     />
   </Router>
 );
 ```
+The second argument to the `StyleGuide`/`RouterLayout` method is optional, but allows for the (limited) detection of PropTypes for your components.
 
 If you start your app now, and go to `/styleguide`, you should be able to see the styleguide running.
 

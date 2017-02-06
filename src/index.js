@@ -1,12 +1,12 @@
 import marked from 'marked';
 import slug from 'slug';
-import { PropTypes } from 'react';
 import RouterLayout from './RouterLayout';
 import Viewer from './Viewer';
 
 export { RouterLayout as RouterLayout };
 export { Viewer as Viewer };
 
+let PropTypes;
 const components = [];
 
 const defaultVariations = [{
@@ -27,7 +27,7 @@ function getVariations(variations, defaultProps) {
 }
 
 function matchPropTypes(userPropTypes) {
-  if (!userPropTypes) return {};
+  if (!userPropTypes || !PropTypes) return {};
   const proptypeList = Object.keys(PropTypes);
 
   return Object.keys(userPropTypes).reduce( (matches, key) => {
@@ -53,7 +53,8 @@ function matchPropTypes(userPropTypes) {
   }, {});
 }
 
-export function init(context) {
+export function init(context, propTypes) {
+  PropTypes = propTypes;
   context.keys().forEach(context);
 }
 
