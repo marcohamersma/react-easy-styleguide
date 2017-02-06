@@ -1,6 +1,15 @@
 import React from 'react';
 
-export default function Variation({ name, description, props }, Component, hideMeta) {
+const NotFound = () => (
+  <div className="styleGuide__panel" key="404">
+    The variation you selected does not seem to exist :(
+  </div>
+);
+
+export default function Variation(variation, Component, hideMeta) {
+  if (!variation) return NotFound();
+
+  const { name, description, props } = variation;
   return (
     <div key={name} className="styleGuide__panel">
       { !hideMeta
