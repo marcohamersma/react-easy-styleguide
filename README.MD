@@ -38,7 +38,7 @@ If you start your app now, and go to `/styleguide`, you should be able to see th
 import Button from './Button';
 import { register } from 'simple-styleguide';
 
-// Register takes 3 parameters:
+// Register takes 4 parameters:
 register(
   // 1. The component
   Button,
@@ -54,7 +54,11 @@ register(
         label: "Hello!"
       }
     },
-  ]
+  ],
+  // 4. Optionally; a list of default props that will be applied to all variations
+  {
+    someProp: 'Hello'
+  }
 )
 ```
 

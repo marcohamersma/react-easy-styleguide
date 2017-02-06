@@ -14,12 +14,13 @@ const defaultVariations = [{
   props: {}
 }];
 
-function getVariations(variations) {
+function getVariations(variations, defaultProps) {
   const hasVariations = variations && variations.length;
 
   return (
     hasVariations ? variations : defaultVariations
   ).map( v => Object.assign({}, v, {
+    props: Object.assign({}, defaultProps, v.props),
     description: marked(v.description || ''),
     slug: slug(v.name)
   }))
@@ -56,7 +57,7 @@ export function init(context) {
   context.keys().forEach(context);
 }
 
-export function register(component, readme, variations) {
+export function register(component, readme, variations, defaultProps) {
   const name = component.displayName || component.name;
 
   components.push({
@@ -64,7 +65,7 @@ export function register(component, readme, variations) {
     slug: slug(name),
     readme: marked(readme),
     propTypes: matchPropTypes(component.propTypes),
-    variations: getVariations(variations),
+    variations: getVariations(variations, defaultProps),
     Component: component,
   })
 }
