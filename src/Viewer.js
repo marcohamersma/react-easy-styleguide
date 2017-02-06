@@ -6,6 +6,10 @@ import Variation from './Variation';
 import bemHelper from 'react-bem-helper';
 const BEMClassName = new bemHelper('styleGuideViewer');
 
+function stringifyProp(prop) {
+  return JSON.stringify(prop, null, 2);
+}
+
 const EmptyState = () => (
   <div className="styleGuide__panel">
     Select a component from the menu
@@ -19,6 +23,8 @@ const NotFound = () => (
 );
 
 const PropTypeRow = (propType, propName, currentVariation)  => {
+  const stringifiedProp = currentVariation
+                            && stringifyProp(currentVariation.props[propName]);
   return (
     <tr key={propName}>
       <td><strong>{propName}:</strong></td>
@@ -29,10 +35,10 @@ const PropTypeRow = (propType, propName, currentVariation)  => {
         </code>
       </td>
 
-      { currentVariation
+      { stringifiedProp
         ? (
-            <td className="sg-current">
-              <code>{ String(currentVariation.props[propName]) }</code>
+            <td className="sg-current" title={stringifiedProp}>
+              <code >{ stringifiedProp }</code>
             </td>
           )
         : null
