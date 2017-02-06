@@ -1,19 +1,20 @@
 {
   "name": "simple-styleguide",
   "version": "0.0.1",
-  "description": "",
+  "description": "This is a tool to easily get a styleguide integrated into your project. It works great with `create-react-app`.",
   "main": "dist/simple-styleguide.js",
   "scripts": {
-    "build": "webpack",
-    "dev": "webpack --watch"
+    "build": "webpack --optimize-minimize",
+    "dev": "webpack --watch",
+    "prepublish": "echo \"Time to move the dependencies to devDependencies\" && exit 1",
+    "postinstall": "npm run build"
   },
   "author": "Marco Hamersma",
   "license": "MIT",
-  "peerDependencies_": {
+  "peerDependencies": {
     "react": "^15.0.0"
   },
-  "dependencies": {},
-  "devDependencies": {
+  "dependencies": {
     "babel-core": "^6.22.1",
     "babel-loader": "^6.2.10",
     "babel-preset-es2015": "^6.22.0",
@@ -29,5 +30,13 @@
     "slug": "^0.9.1",
     "style-loader": "^0.13.1",
     "webpack": "^2.2.1"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/marcohamersma/simple-react-styleguide.git"
+  },
+  "bugs": {
+    "url": "https://github.com/marcohamersma/simple-react-styleguide/issues"
+  },
+  "homepage": "https://github.com/marcohamersma/simple-react-styleguide#readme"
 }
