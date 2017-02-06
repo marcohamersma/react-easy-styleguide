@@ -2,7 +2,13 @@ import React from 'react';
 import { get } from './index';
 import Variation from './Variation';
 
+const EmptyState = () => (
+  <div>Select a component from the menu</div>
+);
+
 const Viewer = props => {
+  if (!props.component) return EmptyState();
+
   const { component, variations } = get(props.component, props.variation);
 
   return (
