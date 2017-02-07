@@ -1,11 +1,10 @@
 import marked from 'marked';
 import slug from 'slug';
 import RouterLayout from './RouterLayout';
-import ColorList from './ColorList';
+import ColorListComponent from './ColorList';
 import Viewer from './Viewer';
 
 export { RouterLayout as RouterLayout };
-export { ColorList as ColorList };
 export { Viewer as Viewer };
 
 let PropTypes;
@@ -89,3 +88,11 @@ export function get(componentSlug, variation) {
 
   return { component, variations };
 };
+
+export function ColorList(colors) {
+  const Component = ColorListComponent.bind(null, colors);
+  Component.displayName = "Colors",
+  Component.noStyleGuideVariations = true;
+
+  return Component;
+}

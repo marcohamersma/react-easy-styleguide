@@ -1,14 +1,19 @@
 import React from 'react';
 import map from 'lodash.map';
+import bemHelper from 'react-bem-helper';
 
-function Colors() {
-  return (
-    <div>
-      Colors!
-    </div>
-  )
-}
+const BEMClassName = new bemHelper('styleGuideColorList');
 
-export default colors => Colors;
-
-Colors.noStyleGuideVariations = true;
+export default colors => (
+  <ul {...BEMClassName()}>
+    {
+      map(colors, (className, name) => (
+        <li key={name} {...BEMClassName('item')}>
+          <div {...BEMClassName('preview', null, className)}/>
+          <div {...BEMClassName('name')}>{ name }</div>
+          <div {...BEMClassName('className')}><code>{ className }</code></div>
+        </li>
+      ))
+    }
+  </ul>
+)

@@ -1,0 +1,43 @@
+.styleGuideColorList {
+  margin: -10px;
+  overflow: hidden;
+
+  &__item {
+    width: 150px;
+    margin: 10px;
+    float: left;
+  }
+
+  &__preview {
+    overflow: hidden;
+    border-radius: 5px;
+    width: 100%;
+    height: 100px;
+    display: block;
+  }
+
+  &__name, &__className {
+    margin-top: 5px;
+    font-size: 14px;
+    text-align: center;
+  }
+
+  &__className {
+    display: none;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+.styleGuideColorList__item:hover {
+  .styleGuideColorList {
+    &__name {
+      display: none;
+    }
+
+    &__className {
+      display: block;
+    }
+  }
+}

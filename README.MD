@@ -7,7 +7,7 @@ _Although I'm currently using this in one of my projects, It's not extensively t
 The module relies on Webpack's `require.context`, and therefore it needs webpack. I think that should be the only required thing, but let me know in the Issues if there's a problem.
 
 ## Setup with React-Router
-React router is recommended, but [#setup-without-react-router](not necessary).
+React router is recommended, but [not necessary](#setup-without-react-router).
 
 To start, we need to tell the styleguide which components to load, it expects a `component.info.js` file to be present for every component in your styleguide, so we use WebPack's requireContext to load them dynamically. You might want to do this in the file where you declare your routes.
 
@@ -84,6 +84,34 @@ import { register, action } from 'simple-styleguide';
     onClick: action('Basic button happenings!')
   }
 },
+```
+
+### Colors and Typography
+Styleguides often have a list of colors and Typographic styles, simple-styleguide comes with ways of easily registering these for use in the styleguide: `ColorList` and `TypeList`, respectively.
+
+```js
+import { register, ColorList } from 'simple-styleguide';
+
+register(
+  ColorList({
+    'Brand Red':  'color-brand',
+    'Brand Blue': 'color-blue',
+    'dark':       'color-dark',
+    'dark-mid':   'color-dark',
+    'light':      'color-light'
+  }),
+  `The colors of this app are very important!`,
+)
+
+register(
+  TypeList({
+    'Main heading':    'type-h1',
+    'Smaller Heading': 'type-h2',
+    'Body text':       'type-body',
+    'Smaller':         'type-smaller',
+  }),
+  `The typography of this app is very important!`,
+)
 ```
 
 ## Setup without React-Router
