@@ -1,0 +1,39 @@
+@import 'shared';
+
+.styleGuideTypeList {
+  &__item {
+    margin: 10px 0;
+    padding-bottom: 10px;
+    border-bottom: 1px solid $grey;
+    position: relative;
+  }
+
+  &__className {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    line-height: 14px;
+    margin-top: -7px;
+    font-size: 14px;
+    text-align: right;
+  }
+
+  // &__className {
+  //   display: none;
+  //   overflow: hidden;
+  //   text-overflow: ellipsis;
+  //   white-space: nowrap;
+  // }
+}
+
+// .styleGuideColorList__item:hover {
+//   .styleGuideColorList {
+//     &__name {
+//       display: none;
+//     }
+
+//     &__className {
+//       display: block;
+//     }
+//   }
+// }

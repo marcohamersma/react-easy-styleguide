@@ -2,6 +2,7 @@ import marked from 'marked';
 import slug from 'slug';
 import RouterLayout from './RouterLayout';
 import ColorListComponent from './ColorList';
+import TypeListComponent from './TypeList';
 import Viewer from './Viewer';
 
 export { RouterLayout as RouterLayout };
@@ -92,6 +93,14 @@ export function get(componentSlug, variation) {
 export function ColorList(colors) {
   const Component = ColorListComponent.bind(null, colors);
   Component.displayName = "Colors",
+  Component.noStyleGuideVariations = true;
+
+  return Component;
+}
+
+export function TypeList(typeVariations) {
+  const Component = TypeListComponent.bind(null, typeVariations);
+  Component.displayName = "Typography",
   Component.noStyleGuideVariations = true;
 
   return Component;
