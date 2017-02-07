@@ -52,7 +52,9 @@ const Viewer = props => {
   const { component, variations } = get(props.component, props.variation);
   if (!component) return NotFound();
 
-  const selectedVariation = props.variation && variations[0];
+  const { singlePane } = component;
+  const selectedVariation = (props.variation && variations[0]);
+
   const description = selectedVariation && selectedVariation.description
                         ? selectedVariation.description
                         : component.readme;
@@ -86,13 +88,16 @@ const Viewer = props => {
         }
       </section>
 
-      <h2 {...BEMClassName('variationsHeader')}>
-        { selectedVariation ? 'Output' : 'Variations' }:
-      </h2>
-
+      { !singlePane
+        ? (
+          <h2 {...BEMClassName('variationsHeader')}>
+            { selectedVariation ? 'Output' : 'Variations' }:
+          </h2>
+        ) : null
+      }
 
       { variations.map(
-        v => Variation(v, component.Component, !!selectedVariation)
+        v => Variation(v, component.Component, !!selectedVariation || singlePane)
       )}
     </div>
   );

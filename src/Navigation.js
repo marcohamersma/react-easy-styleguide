@@ -24,7 +24,7 @@ const Variations = (variations, parentSlug) => {
   )
 }
 
-const ListItem = ({ slug, name, variations}, currentItem) => (
+const ListItem = ({ slug, name, variations, singlePane}, currentItem) => (
   <li key={slug} {...BEMClassName('list-item')}>
     <Link
       to={url(slug)}
@@ -32,7 +32,11 @@ const ListItem = ({ slug, name, variations}, currentItem) => (
       {...BEMClassName('component')}
     >{name}</Link>
 
-    { currentItem === slug ? Variations(variations, slug) : null }
+    {
+      currentItem === slug && !singlePane
+      ? Variations(variations, slug)
+      : null
+    }
   </li>
 )
 

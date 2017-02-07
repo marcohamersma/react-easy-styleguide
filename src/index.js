@@ -62,13 +62,13 @@ export function init(context, propTypes) {
 
 export function register(component, readme, variations, defaultProps) {
   const name = component.displayName || component.name;
-
   components.push({
     name: name,
     slug: slug(name),
     readme: marked(readme),
     propTypes: matchPropTypes(component.propTypes),
     variations: getVariations(variations, defaultProps),
+    singlePane: !!component.noStyleGuideVariations,
     Component: component,
   })
 }
