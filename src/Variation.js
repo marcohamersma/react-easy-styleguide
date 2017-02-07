@@ -10,12 +10,14 @@ function MetaWrapper(variation, component) {
   const { name, description } = variation;
 
   return (
-    <div className="styleGuide-element">
-      <h3>{name}</h3>
-      <div
-        className="styleGuideViewer__description"
-        dangerouslySetInnerHTML={{__html: description}}
-      />
+    <div>
+      <div className="styleGuide-element">
+        <h3>{name}</h3>
+        <div
+          className="styleGuideViewer__description"
+          dangerouslySetInnerHTML={{__html: description}}
+        />
+      </div>
 
       <div className="styleGuideViewer__item-container">
         { component }

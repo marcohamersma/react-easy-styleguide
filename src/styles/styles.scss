@@ -2,11 +2,6 @@
 @import 'shared';
 @import url('https://fonts.googleapis.com/css?family=Gudea:400,400i,700');
 
-.styleGuide-element {
-  font-family: 'Gudea', sans-serif;
-  @include normalizeElement;
-}
-
 .styleGuide {
   @include normalizeElement;
   min-height: 100vh;
@@ -14,6 +9,25 @@
   background: $background;
   position: relative;
   padding: $padding  $padding $padding ($styleguide-width + $padding);
+}
+
+.styleGuide-element {
+  font-family: 'Gudea', sans-serif;
+  @include normalizeElement;
+
+  a {
+    text-decoration: none;
+    color: $accent;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.styleGuide__contents {
+  padding: 0 $padding;
+  margin-top: -$padding;
 }
 
 .styleGuide__panel {
@@ -24,7 +38,6 @@
   max-width: 800px;
 }
 
-@import 'contents';
 @import 'navigation';
 @import 'viewer';
 @import 'typography';
