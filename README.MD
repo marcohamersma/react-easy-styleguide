@@ -1,6 +1,8 @@
 # Simple styleGuide
 This is a tool to easily get a styleguide integrated into your project. It works great with `create-react-app`.
 
+Although there are some really neat styleguide tools for React, they don't really work when you are not using CSS modules. If you rely on global css (for example because your components use styles from Bootstrap, or other CSS frameworks), it seems impossible to use those styles properly without styles conflicting.
+
 _Although I'm currently using this in one of my projects, It's not extensively tested, which is why it's not on NPM as of yet. You should be able to install it anyway by doing `npm install marcohamersma/simple-styleguide`_
 
 ## Requirements

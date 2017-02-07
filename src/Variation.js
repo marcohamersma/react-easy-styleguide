@@ -1,7 +1,7 @@
 import React from 'react';
 
 const NotFound = () => (
-  <div className="styleGuide__panel" key="404">
+  <div className="styleGuide-element styleGuide__panel" key="404">
     The variation you selected does not seem to exist :(
   </div>
 );
@@ -10,7 +10,7 @@ function MetaWrapper(variation, component) {
   const { name, description } = variation;
 
   return (
-    <div>
+    <div className="styleGuide-element">
       <h3>{name}</h3>
       <div
         className="styleGuideViewer__description"

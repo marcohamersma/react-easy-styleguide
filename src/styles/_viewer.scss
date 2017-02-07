@@ -31,7 +31,8 @@
   &__item-container {
     padding: $padding / 2;
     border: 1px solid $grey;
-    margin: ($padding / 2) 0;
+    border-radius: 5px;
+    margin: $padding 0 ($padding / 2) 0;
   }
 
   &__variationsHeader {

@@ -41,7 +41,7 @@ const ListItem = ({ slug, name, variations, singlePane}, currentItem) => (
 )
 
 const Navigation = ({ components, name, params }) => (
-  <nav {...BEMClassName()}>
+  <nav {...BEMClassName({ extra: 'styleGuide-element' })}>
     <Link to={url('')} {...BEMClassName('title')}>{name}</Link>
 
     <ul {...BEMClassName('list')}>

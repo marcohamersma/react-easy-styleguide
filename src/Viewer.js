@@ -11,13 +11,13 @@ function stringifyProp(prop) {
 }
 
 const EmptyState = () => (
-  <div className="styleGuide__panel">
+  <div className="styleGuide-element styleGuide__panel">
     Select a component from the menu
   </div>
 );
 
 const NotFound = () => (
-  <div className="styleGuide__panel">
+  <div className="styleGuide-element styleGuide__panel">
     The component you selected does not seem to exist
   </div>
 );
@@ -62,30 +62,32 @@ const Viewer = props => {
   return (
     <div {...BEMClassName()}>
       <section className="styleGuide__panel">
-        <h1>
-          { component.name }
-          { selectedVariation ? ' — ' + selectedVariation.name : null }
-        </h1>
+        <div className="styleGuide-element">
+          <h1>
+            { component.name }
+            { selectedVariation ? ' — ' + selectedVariation.name : null }
+          </h1>
 
-        <div
-           {...BEMClassName('description')}
-          dangerouslySetInnerHTML={{__html: description}}
-        />
+          <div
+             {...BEMClassName('description')}
+            dangerouslySetInnerHTML={{__html: description}}
+          />
 
-        { component.propTypes && Object.keys(component.propTypes).length
-          ? (
-              <table {...BEMClassName('propTypes')}>
-                <caption><h2>
-                  PropTypes
-                  { selectedVariation ? ' & props' : null }
-                </h2></caption>
-                <tbody>
-                  { map(component.propTypes, (t,n) => PropTypeRow(t, n, selectedVariation) )}
-                </tbody>
-              </table>
-            )
-          : null
-        }
+          { component.propTypes && Object.keys(component.propTypes).length
+            ? (
+                <table {...BEMClassName('propTypes')}>
+                  <caption><h2>
+                    PropTypes
+                    { selectedVariation ? ' & props' : null }
+                  </h2></caption>
+                  <tbody>
+                    { map(component.propTypes, (t,n) => PropTypeRow(t, n, selectedVariation) )}
+                  </tbody>
+                </table>
+              )
+            : null
+          }
+        </div>
       </section>
 
       { !singlePane

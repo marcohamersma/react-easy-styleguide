@@ -3,4 +3,13 @@ $padding: 20px;
 $accent: #6e08ff;
 $background: #F9FAF9;
 $mid: #86918C;
-$grey: #E4E4E4,
+$grey: #E4E4E4;
+
+@mixin normalizeElement {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+  box-sizing: border-box;
+}

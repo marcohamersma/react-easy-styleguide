@@ -2,18 +2,22 @@
 @import 'shared';
 @import url('https://fonts.googleapis.com/css?family=Gudea:400,400i,700');
 
-.styleGuide {
+.styleGuide-element {
   font-family: 'Gudea', sans-serif;
+  @include normalizeElement;
+}
+
+.styleGuide {
+  @include normalizeElement;
   min-height: 100vh;
 
-
-  @include normalize;
-  background-color: $background;
+  background: $background;
   position: relative;
   padding: $padding  $padding $padding ($styleguide-width + $padding);
 }
 
 .styleGuide__panel {
+  @include normalizeElement;
   background-color: white;
   margin: $padding 0;
   padding: $padding;

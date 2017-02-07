@@ -5,7 +5,7 @@ import bemHelper from 'react-bem-helper';
 const BEMClassName = new bemHelper('styleGuideColorList');
 
 export default colors => (
-  <ul {...BEMClassName()}>
+  <ul {...BEMClassName({ extra: 'styleGuide-element' })}>
     {
       map(colors, (className, name) => (
         <li key={name} {...BEMClassName('item')}>

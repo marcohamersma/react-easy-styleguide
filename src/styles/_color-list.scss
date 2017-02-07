@@ -1,8 +1,13 @@
 .styleGuideColorList {
   margin: -10px;
+  list-style: none;
+  padding: 0;
   overflow: hidden;
 
   &__item {
+    list-style: none;
+    padding: 0;
+    margin: 0;
     width: 136px;
     margin: 10px;
     float: left;
