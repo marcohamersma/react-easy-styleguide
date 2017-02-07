@@ -22,9 +22,9 @@ const NotFound = () => (
   </div>
 );
 
-const PropTypeRow = (propType, propName, currentVariation)  => {
-  const stringifiedProp = currentVariation
-                            && stringifyProp(currentVariation.props[propName]);
+const PropTypeRow = (propType, propName, selectedVariation)  => {
+  const stringifiedProp = selectedVariation
+                            && stringifyProp(selectedVariation.props[propName]);
   return (
     <tr key={propName}>
       <td><strong>{propName}:</strong></td>
@@ -52,9 +52,9 @@ const Viewer = props => {
   const { component, variations } = get(props.component, props.variation);
   if (!component) return NotFound();
 
-  const currentVariation = props.variation && variations[0];
-  const description = currentVariation && currentVariation.description
-                        ? currentVariation.description
+  const selectedVariation = props.variation && variations[0];
+  const description = selectedVariation && selectedVariation.description
+                        ? selectedVariation.description
                         : component.readme;
 
   return (
@@ -62,7 +62,7 @@ const Viewer = props => {
       <section className="styleGuide__panel">
         <h1>
           { component.name }
-          { currentVariation ? ' — ' + currentVariation.name : null }
+          { selectedVariation ? ' — ' + selectedVariation.name : null }
         </h1>
 
         <div
@@ -75,10 +75,10 @@ const Viewer = props => {
               <table {...BEMClassName('propTypes')}>
                 <caption><h2>
                   PropTypes
-                  { currentVariation ? ' & props' : null }
+                  { selectedVariation ? ' & props' : null }
                 </h2></caption>
                 <tbody>
-                  { map(component.propTypes, (t,n) => PropTypeRow(t, n, currentVariation) )}
+                  { map(component.propTypes, (t,n) => PropTypeRow(t, n, selectedVariation) )}
                 </tbody>
               </table>
             )
@@ -87,12 +87,12 @@ const Viewer = props => {
       </section>
 
       <h2 {...BEMClassName('variationsHeader')}>
-        { currentVariation ? 'Output' : 'Variations' }:
+        { selectedVariation ? 'Output' : 'Variations' }:
       </h2>
 
 
       { variations.map(
-        v => Variation(v, component.Component, !!currentVariation)
+        v => Variation(v, component.Component, !!selectedVariation)
       )}
     </div>
   );
