@@ -1,5 +1,6 @@
 var path = require('path');
 var name = 'simple-styleguide';
+var webpack = require('webpack');
 
 module.exports = {
   entry: './src/index.js',
@@ -25,5 +26,8 @@ module.exports = {
         use: ["style-loader", "css-loader", "sass-loader"]
       }
     ]
-  }
+  },
+  plugins: [
+    new webpack.IgnorePlugin(/unicode\/category\/So/)
+  ]
 };
