@@ -1,9 +1,11 @@
 import marked from 'marked';
 import slug from 'slug';
 import RouterLayout from './RouterLayout';
+import ColorList from './ColorList';
 import Viewer from './Viewer';
 
 export { RouterLayout as RouterLayout };
+export { ColorList as ColorList };
 export { Viewer as Viewer };
 
 let PropTypes;

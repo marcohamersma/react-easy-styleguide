@@ -70,15 +70,20 @@ const Viewer = props => {
           dangerouslySetInnerHTML={{__html: description}}
         />
 
-        <table {...BEMClassName('propTypes')}>
-          <caption><h2>
-            PropTypes
-            { currentVariation ? ' & props' : null }
-          </h2></caption>
-          <tbody>
-            { map(component.propTypes, (t,n) => PropTypeRow(t, n, currentVariation) )}
-          </tbody>
-        </table>
+        { component.propTypes && Object.keys(component.propTypes).length
+          ? (
+              <table {...BEMClassName('propTypes')}>
+                <caption><h2>
+                  PropTypes
+                  { currentVariation ? ' & props' : null }
+                </h2></caption>
+                <tbody>
+                  { map(component.propTypes, (t,n) => PropTypeRow(t, n, currentVariation) )}
+                </tbody>
+              </table>
+            )
+          : null
+        }
       </section>
 
       <h2 {...BEMClassName('variationsHeader')}>
