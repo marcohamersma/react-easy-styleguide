@@ -29,13 +29,13 @@
   }
 
   &__item-container {
-    padding: $padding / 2;
-    border: 1px solid $grey;
-    border-radius: 5px;
-    margin: $padding 0 ($padding / 2) 0;
+    padding-top: $padding;
+    border-top: 1px solid $background;
+    margin: $padding/2 0 ($padding / 2) 0;
   }
 
   &__variationsHeader {
     text-align: center;
+    max-width: $panel-max-width;
   }
 }

@@ -65,8 +65,8 @@ export function register(component, readme, variations, defaultProps) {
   components.push({
     name: name,
     slug: slug(name),
-    readme: marked(readme),
-    propTypes: matchPropTypes(component.propTypes),
+    readme: marked(readme || ''),
+    propTypes: matchPropTypes(Component.propTypes),
     variations: getVariations(variations, defaultProps),
     singlePane: !!component.noStyleGuideVariations,
     Component: component,
