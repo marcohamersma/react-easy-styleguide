@@ -6,6 +6,10 @@ const NotFound = () => (
   </div>
 );
 
+const wrappedComponent = component => childProps => (
+  <component.Wrapper Component={component.Component} componentProps={childProps} />
+)
+
 function MetaWrapper(variation, component) {
   const { name, description } = variation;
 
@@ -26,8 +30,12 @@ function MetaWrapper(variation, component) {
   );
 }
 
-export default function Variation(variation, Component, hideMeta) {
+export default function Variation(variation, component, hideMeta) {
   if (!variation) return NotFound();
+
+  let Component = component.Wrapper
+                    ? wrappedComponent(component)
+                    : component.Component;
 
   const { name, description, props } = variation;
   return (

@@ -48,7 +48,7 @@ If you start your app now, and go to `/styleguide`, you should be able to see th
 import Button from './Button';
 import { register } from 'simple-styleguide';
 
-// Register takes 4 parameters:
+// Register takes 5 parameters:
 register(
   // 1. The component
   Button,
@@ -69,6 +69,8 @@ register(
   {
     someProp: 'Hello'
   }
+  // 5. Optionally, a Higher Order or wrapping component, in case you need to pass some extra props to it, like a Redux connected component.
+  reduxWrapper
 )
 ```
 
@@ -114,6 +116,30 @@ register(
   }),
   `The typography of this app is very important!`,
 )
+```
+
+### Higher Order Components / Redux
+Sometimes you might want to wrap a styleguide component in another component to make sure the dataflow is correct. The fifth parameter in the [register](#adding-components-to-your-styleguide) function takes a wrapping component class, which will be passed a `Component` and `componentProps` prop. Here's an example component you might pass:
+
+```js
+import { connect } from 'react-redux';
+import React from 'react';
+
+function StyleGuideWrapper(props) {
+  const {Component, componentProps, storeData, ...rest} = props;
+
+  return (
+    <Component {...componentProps} storeData={storeData} {...rest} />
+  );
+);
+
+export default connect(
+  storeData => ({ storeData: storeData.styleGuide }),
+  dispatch => ({
+    …
+  })
+)(StyleGuideWrapper)
+
 ```
 
 ## Setup without React-Router

@@ -99,7 +99,7 @@ const Viewer = props => {
       }
 
       { variations.map(
-        v => Variation(v, component.Component, !!selectedVariation || singlePane)
+        v => Variation(v, component, !!selectedVariation || singlePane)
       )}
     </div>
   );

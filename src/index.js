@@ -60,16 +60,17 @@ export function init(context, propTypes) {
   context.keys().forEach(context);
 }
 
-export function register(component, readme, variations, defaultProps) {
-  const name = component.displayName || component.name;
+export function register(Component, readme, variations, defaultProps, Wrapper) {
+  const name = Component.displayName || Component.name;
+
   components.push({
     name: name,
     slug: slug(name),
     readme: marked(readme || ''),
     propTypes: matchPropTypes(Component.propTypes),
     variations: getVariations(variations, defaultProps),
-    singlePane: !!component.noStyleGuideVariations,
-    Component: component,
+    singlePane: !!Component.noStyleGuideVariations,
+    Component, Wrapper
   })
 }
 
