@@ -50,7 +50,7 @@ import { register } from 'simple-styleguide';
 
 // Register takes 5 parameters:
 register(
-  // 1. The component
+  // 1. The component, or an object containing Component, propTypesComponent:
   Button,
   // 2. A component description (supports Markdown)
   ` How do you like this description? `,
@@ -117,9 +117,22 @@ register(
   `The typography of this app is very important!`,
 )
 ```
+### Registering higher order components
+If the component you passed to [`register`](#adding-components-to-your-styleguide)'s first parameter is contained inside another one, simple-stype-guide will not be able to accurately detect the name and proptypes of the component, you can pass these manually by passing an Object instead:
+
+```js
+register(
+  {
+    Component: ComponentToBeRendered,
+    propTypesComponent: ComponentToGetPropTypesFrom,
+    name: 'Input' // Optional, defaults to propTypesComponent's displayName or name.
+  },
+  …
+)
+```
 
 ### Higher Order Components / Redux
-Sometimes you might want to wrap a styleguide component in another component to make sure the dataflow is correct. The fifth parameter in the [register](#adding-components-to-your-styleguide) function takes a wrapping component class, which will be passed a `Component` and `componentProps` prop. Here's an example component you might pass:
+Sometimes you might want to wrap a styleguide component in another component to make sure the dataflow is correct. The fifth parameter in the [`register`](#adding-components-to-your-styleguide) function takes a wrapping component class, which will be passed a `Component` and `componentProps` prop. Here's an example component you might pass:
 
 ```js
 import { connect } from 'react-redux';

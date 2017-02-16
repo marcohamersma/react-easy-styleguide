@@ -1,4 +1,5 @@
 import marked from 'marked';
+import isPlainObject from 'lodash.isPlainObject';
 import slug from 'slug';
 import RouterLayout from './RouterLayout';
 import ColorListComponent from './ColorList';
@@ -60,17 +61,24 @@ export function init(context, propTypes) {
   context.keys().forEach(context);
 }
 
-export function register(Component, readme, variations, defaultProps, Wrapper) {
-  const name = Component.displayName || Component.name;
+export function register(componentProps, readme, variations, defaultProps, Wrapper) {
+  const component = isPlainObject(componentProps) ? componentProps : {
+    Component: componentProps,
+    propTypesComponent: componentProps
+  };
+
+  const realComponent = component.propTypesComponent;
+  component.name =  component.name || realComponent.displayName || realComponent.name;
 
   components.push({
-    name: name,
-    slug: slug(name),
+    name: component.name,
+    slug: slug(component.name),
     readme: marked(readme || ''),
-    propTypes: matchPropTypes(Component.propTypes),
+    propTypes: matchPropTypes(realComponent.propTypes),
     variations: getVariations(variations, defaultProps),
-    singlePane: !!Component.noStyleGuideVariations,
-    Component, Wrapper
+    singlePane: !!component.Component.noStyleGuideVariations,
+    Component: component.Component,
+    Wrapper
   })
 }
 
