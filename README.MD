@@ -61,7 +61,7 @@ register(
   // optionally with description
   [
     {
-      name: 'Basic',
+      name: 'Default',
       description: 'How do you like _this_ description?',
       props: {
         label: "Hello!"
@@ -84,7 +84,7 @@ You can also use the `action` helper function to easily log things that happen, 
 import { register, action } from 'simple-styleguide';
 …
 {
-  name: 'Basic',
+  name: 'Default',
   description: 'How do you like _this_ description?',
   props: {
     label: "Hello!",

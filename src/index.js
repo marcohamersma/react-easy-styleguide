@@ -17,7 +17,7 @@ let styleguideProps = {
 }
 
 const defaultVariations = [{
-  name: 'Basic',
+  name: 'Default',
   props: {}
 }];
 

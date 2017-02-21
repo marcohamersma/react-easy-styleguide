@@ -2777,7 +2777,7 @@ var styleguideProps = {
 };
 
 var defaultVariations = [{
-  name: 'Basic',
+  name: 'Default',
   props: {}
 }];
 
