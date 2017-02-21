@@ -32,12 +32,15 @@ ReactDOM.render(
 
     <Route
       path="/styleguide(/:component(/:variation))"
-      component={StyleGuide(styleguideContext, React.PropTypes)}
+      component={StyleGuide(styleguideContext, {
+        name: 'My StyleGuide',
+        propTypes: React.PropTypes
+      )}
     />
   </Router>
 );
 ```
-The second argument to the `StyleGuide`/`RouterLayout` method is optional, but allows for the (limited) detection of PropTypes for your components.
+The second argument to the `StyleGuide`/`RouterLayout` method is optional, but allows for passing a `name` (title) and a `propTypes` property. Passing along a PropTypes property will allow the (limited) detection of PropTypes for your components.
 
 If you start your app now, and go to `/styleguide`, you should be able to see the styleguide running.
 

@@ -9,8 +9,12 @@ import Viewer from './Viewer';
 export { RouterLayout as RouterLayout };
 export { Viewer as Viewer };
 
-let PropTypes;
 const components = [];
+
+let styleguideProps = {
+  name: 'Your Simple Styleguide',
+  propTypes: {}
+}
 
 const defaultVariations = [{
   name: 'Basic',
@@ -30,8 +34,8 @@ function getVariations(variations, defaultProps) {
 }
 
 function matchPropTypes(userPropTypes) {
-  if (!userPropTypes || !PropTypes) return {};
-  const proptypeList = Object.keys(PropTypes);
+  if (!userPropTypes || !styleguideProps.propTypes) return {};
+  const proptypeList = Object.keys(styleguideProps.propTypes);
 
   return Object.keys(userPropTypes).reduce( (matches, key) => {
     const value = userPropTypes[key];
@@ -39,7 +43,7 @@ function matchPropTypes(userPropTypes) {
 
     for (var i = 0; i < proptypeList.length; i++) {
       let propName = proptypeList[i];
-      let reactPropType = PropTypes[propName];
+      let reactPropType = styleguideProps.propTypes[propName];
 
       if (reactPropType === value) {
         matchedProp = { name: propName };
@@ -56,8 +60,9 @@ function matchPropTypes(userPropTypes) {
   }, {});
 }
 
-export function init(context, propTypes) {
-  PropTypes = propTypes;
+export function init(context, props = {}) {
+  Object.assign(styleguideProps, props);
+
   context.keys().forEach(context);
 }
 
@@ -98,6 +103,10 @@ export function get(componentSlug, variation) {
 
   return { component, variations };
 };
+
+export function getName() {
+  return styleguideProps.name;
+}
 
 export function ColorList(colors) {
   const Component = ColorListComponent.bind(null, colors);

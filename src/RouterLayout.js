@@ -11,7 +11,7 @@ const RouterLayout = (props) => {
   const components = styleGuide.list();
   const { variation, component } = props.params;
 
-  const name = 'Your Simple-Styleguide';
+  const name = styleGuide.getName();
   return (
     <div {...BEMClassName()}>
       <Navigation components={components} name={name}/>
@@ -29,8 +29,8 @@ const RouterLayout = (props) => {
   );
 }
 
-export default (context, propTypes) => {
-  styleGuide.init(context, propTypes);
+export default (context, props) => {
+  styleGuide.init(context, props);
 
   return RouterLayout;
 }

@@ -2731,6 +2731,7 @@ exports.init = init;
 exports.register = register;
 exports.list = list;
 exports.get = get;
+exports.getName = getName;
 exports.ColorList = ColorList;
 exports.TypeList = TypeList;
 
@@ -2768,8 +2769,12 @@ exports.RouterLayout = _RouterLayout2.default;
 exports.Viewer = _Viewer2.default;
 
 
-var PropTypes = void 0;
 var components = [];
+
+var styleguideProps = {
+  name: 'Your Simple Styleguide',
+  propTypes: {}
+};
 
 var defaultVariations = [{
   name: 'Basic',
@@ -2789,8 +2794,8 @@ function getVariations(variations, defaultProps) {
 }
 
 function matchPropTypes(userPropTypes) {
-  if (!userPropTypes || !PropTypes) return {};
-  var proptypeList = Object.keys(PropTypes);
+  if (!userPropTypes || !styleguideProps.propTypes) return {};
+  var proptypeList = Object.keys(styleguideProps.propTypes);
 
   return Object.keys(userPropTypes).reduce(function (matches, key) {
     var value = userPropTypes[key];
@@ -2798,7 +2803,7 @@ function matchPropTypes(userPropTypes) {
 
     for (var i = 0; i < proptypeList.length; i++) {
       var propName = proptypeList[i];
-      var reactPropType = PropTypes[propName];
+      var reactPropType = styleguideProps.propTypes[propName];
 
       if (reactPropType === value) {
         matchedProp = { name: propName };
@@ -2815,8 +2820,11 @@ function matchPropTypes(userPropTypes) {
   }, {});
 }
 
-function init(context, propTypes) {
-  PropTypes = propTypes;
+function init(context) {
+  var props = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+  Object.assign(styleguideProps, props);
+
   context.keys().forEach(context);
 }
 
@@ -2863,6 +2871,10 @@ function get(componentSlug, variation) {
 
   return { component: component, variations: variations };
 };
+
+function getName() {
+  return styleguideProps.name;
+}
 
 function ColorList(colors) {
   var Component = _ColorList2.default.bind(null, colors);
@@ -3008,7 +3020,7 @@ var RouterLayout = function RouterLayout(props) {
       component = _props$params.component;
 
 
-  var name = 'Your Simple-Styleguide';
+  var name = styleGuide.getName();
   return _react2.default.createElement(
     'div',
     BEMClassName(),
@@ -3031,8 +3043,8 @@ var RouterLayout = function RouterLayout(props) {
   );
 };
 
-exports.default = function (context, propTypes) {
-  styleGuide.init(context, propTypes);
+exports.default = function (context, props) {
+  styleGuide.init(context, props);
 
   return RouterLayout;
 };
