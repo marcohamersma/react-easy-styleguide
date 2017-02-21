@@ -6,7 +6,7 @@ const BEMClassName = new bemHelper('styleGuideNav');
 const url = path => '/styleguide/' + path;
 
 const Variations = (variations, parentSlug) => {
-  if (!variations.length) return null;
+  if (variations.length < 2) return null;
   return (
     <ul {...BEMClassName('variationsList')}>
       { variations.map(v => (
@@ -27,7 +27,7 @@ const Variations = (variations, parentSlug) => {
 const ListItem = ({ slug, name, variations, singlePane}, currentItem) => (
   <li key={slug} {...BEMClassName('list-item')}>
     <Link
-      to={url(slug)}
+      to={variations.length === 1 ? url([slug, variations[0].slug].join('/')) : url(slug)}
       activeClassName="sg-active"
       {...BEMClassName('component')}
     >{name}</Link>

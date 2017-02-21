@@ -4793,7 +4793,7 @@ var url = function url(path) {
 };
 
 var Variations = function Variations(variations, parentSlug) {
-  if (!variations.length) return null;
+  if (variations.length < 2) return null;
   return _react2.default.createElement(
     'ul',
     BEMClassName('variationsList'),
@@ -4825,7 +4825,7 @@ var ListItem = function ListItem(_ref, currentItem) {
     _react2.default.createElement(
       _reactRouter.Link,
       _extends({
-        to: url(slug),
+        to: variations.length === 1 ? url([slug, variations[0].slug].join('/')) : url(slug),
         activeClassName: 'sg-active'
       }, BEMClassName('component')),
       name
