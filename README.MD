@@ -1,9 +1,11 @@
 # Simple styleGuide
 This is a tool to easily get a styleguide integrated into your project. It works great with `create-react-app`.
 
+![](https://cloud.githubusercontent.com/assets/577144/23210205/722b28e6-f8f4-11e6-8366-c262775c98cb.png)
+
 Although there are some really neat styleguide tools for React, they don't really work when you are not using CSS modules. If you rely on global css (for example because your components use styles from Bootstrap, or other CSS frameworks), it seems impossible to use those styles properly without styles conflicting.
 
-_Although I'm currently using this in one of my projects, It's not extensively tested, which is why it's not on NPM as of yet. You should be able to install it anyway by doing `npm install marcohamersma/simple-styleguide`_
+_Although I'm currently using this in one of my projects, It's not extensively tested, which is why it's not on NPM as of yet. You should be able to install it anyway by doing `npm install marcohamersma/simple-react-styleguide --save`_
 
 ## Requirements
 The module relies on Webpack's `require.context`, and therefore it needs webpack. I think that should be the only required thing, but let me know in the Issues if there's a problem.
@@ -35,7 +37,7 @@ ReactDOM.render(
       component={StyleGuide(styleguideContext, {
         name: 'My StyleGuide',
         propTypes: React.PropTypes
-      )}
+      })}
     />
   </Router>
 );
@@ -99,6 +101,12 @@ When the function is executed, it will print out a console message with the text
 ### Colors and Typography
 Styleguides often have a list of colors and Typographic styles, simple-styleguide comes with ways of easily registering these for use in the styleguide: `ColorList` and `TypeList`, respectively.
 
+![Typography](https://cloud.githubusercontent.com/assets/577144/23210204/72097e08-f8f4-11e6-867b-18ba8ff5569b.png)
+
+![Colors](https://cloud.githubusercontent.com/assets/577144/23210206/7238ad90-f8f4-11e6-9ff7-f993f8a7ef19.png)
+
+Like with components, you can create a `design.info.js` file and call the `register()` from it. Instead of passing a Component class, use the `ColorList` or `TypeList` components, they each receive an object, the keys being the display name, and the value the CSS class that should be applied to the element to see the style.
+
 ```js
 import { register, ColorList, TypeList } from 'simple-styleguide';
 
@@ -123,6 +131,15 @@ register(
   `The typography of this app is very important!`,
 )
 ```
+
+#### A note on component order
+Although `*.info` files in the component folder should be picked up automatically, the order in which this happens can be arbitrary. Since you might want to have the colors and typography at the top of the component list, you might want to explicitly import/require this file before you create the styleguideContext:
+
+```js
+require('./design.info.js');
+const styleguideContext = require.context('./components/', true, /.info.js$/)
+```
+
 ### Registering higher order components
 If the component you passed to [`register`](#adding-components-to-your-styleguide)'s first parameter is contained inside another one, simple-stype-guide will not be able to accurately detect the name and proptypes of the component, you can pass these manually by passing an Object instead:
 

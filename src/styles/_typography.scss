@@ -1,7 +1,10 @@
 .styleGuide-element {
+  font-size: 16px;
+
   h1, h2, h3 {
     margin: 0;
     line-height: 1.2;
+    font-weight: bolder;
   }
 
   h1 {
@@ -16,6 +19,7 @@
   p {
     margin: 0 0 1.5em 0;
   }
+
   p:last-child {
     margin: 0;
   }

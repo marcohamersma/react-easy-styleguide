@@ -92,9 +92,11 @@ const Viewer = props => {
 
       { !singlePane
         ? (
-          <h2 {...BEMClassName('variationsHeader')}>
-            { selectedVariation ? 'Output' : 'Variations' }:
-          </h2>
+          <div className="styleGuide-element">
+            <h2 {...BEMClassName('variationsHeader')}>
+              { selectedVariation ? 'Output' : 'Variations' }:
+            </h2>
+          </div>
         ) : null
       }
 
