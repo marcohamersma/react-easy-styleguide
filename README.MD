@@ -1,4 +1,4 @@
-# Simple styleGuide
+# Simple styleGuide ([Demo](http://marcohamersma.github.io/react-easy-styleguide))
 This is a tool to easily get a styleguide integrated into your project. It works great with `create-react-app`.
 
 _**note**: In the screenshots I used Bootstrap styles as a way of showing some basic components and styles, but of course you can use it with your own styles and components_.
