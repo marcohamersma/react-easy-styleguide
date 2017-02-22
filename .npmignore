@@ -1,0 +1,8 @@
+# dependencies
+node_modules
+npm-debug.log
+build
+src
+dist
+*sublime-*
+webpack.config.js
