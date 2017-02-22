@@ -2,7 +2,7 @@
   "name": "easy-styleguide-example",
   "version": "1.0.0",
   "private": false,
-  "homepage": "http://marcohamersma.github.io/react-easy-styleguide",
+  "homepage": "https://marcohamersma.github.io/react-easy-styleguide",
   "devDependencies": {
     "gh-pages": "^0.12.0",
     "react-scripts": "0.9.0"
