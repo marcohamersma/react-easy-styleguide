@@ -8,6 +8,11 @@
     "dev": "webpack --watch",
     "prepublish": "npm run build"
   },
+  "keywords": [
+    "react",
+    "styleguide",
+    "component-library"
+  ],
   "eslintConfig": {
     "extends": "react-app"
   },
