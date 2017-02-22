@@ -93,11 +93,14 @@ import { register, action } from 'simple-styleguide';
 },
 ```
 
+When the function is executed, it will print out a console message with the text you provided and the arguments passed, something similar to this:
+`[ACTION] Basic button happenings! ▶︎ [Proxy, Event]`
+
 ### Colors and Typography
 Styleguides often have a list of colors and Typographic styles, simple-styleguide comes with ways of easily registering these for use in the styleguide: `ColorList` and `TypeList`, respectively.
 
 ```js
-import { register, ColorList } from 'simple-styleguide';
+import { register, ColorList, TypeList } from 'simple-styleguide';
 
 register(
   ColorList({
