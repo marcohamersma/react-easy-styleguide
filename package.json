@@ -1,12 +1,15 @@
 {
-  "name": "simple-styleguide",
+  "name": "react-easy-styleguide",
   "version": "0.0.1",
   "description": "This is a tool to easily get a styleguide integrated into your project. It works great with `create-react-app`.",
-  "main": "dist/simple-styleguide.js",
+  "main": "dist/react-easy-styleguide.js",
   "scripts": {
     "build": "webpack --optimize-minimize",
     "dev": "webpack --watch",
     "prepublish": "echo \"Time to move the dependencies to devDependencies and remove the dist folder from git\" && exit 1"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
   },
   "author": "Marco Hamersma",
   "license": "MIT",
@@ -33,10 +36,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/marcohamersma/simple-react-styleguide.git"
+    "url": "git+https://github.com/marcohamersma/react-easy-styleguide.git"
   },
   "bugs": {
-    "url": "https://github.com/marcohamersma/simple-react-styleguide/issues"
+    "url": "https://github.com/marcohamersma/react-easy-styleguide/issues"
   },
-  "homepage": "https://github.com/marcohamersma/simple-react-styleguide#readme"
+  "homepage": "https://github.com/marcohamersma/react-easy-styleguide#readme"
 }

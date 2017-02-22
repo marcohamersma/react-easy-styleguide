@@ -12,7 +12,7 @@ export { Viewer as Viewer };
 const components = [];
 
 let styleguideProps = {
-  name: 'Your Simple Styleguide',
+  name: 'Your Easy Styleguide',
   propTypes: {}
 }
 

@@ -1,5 +1,5 @@
 var path = require('path');
-var name = 'simple-styleguide';
+var name = 'react-easy-styleguide';
 var webpack = require('webpack');
 
 module.exports = {

@@ -7,7 +7,7 @@ _**note**: In the screenshots I used Bootstrap styles as a way of showing some b
 
 Although there are some really neat styleguide tools for React, they don't really work when you are not using CSS modules. If you rely on global css (for example because your components use styles from Bootstrap, or other CSS frameworks), it seems impossible to use those styles properly without styles conflicting.
 
-_Although I'm currently using this in one of my projects, It's not extensively tested, which is why it's not on NPM as of yet. You should be able to install it anyway by doing `npm install marcohamersma/simple-react-styleguide --save`_
+_Although I'm currently using this in one of my projects, It's not extensively tested, which is why it's not on NPM as of yet. You should be able to install it anyway by doing `npm install marcohamersma/react-easy-styleguide --save`_
 
 ## Requirements
 The module relies on Webpack's `require.context`, and therefore it needs webpack. I think that should be the only required thing, but let me know in the Issues if there's a problem.
@@ -25,7 +25,7 @@ const styleguideContext = require.context('./components/', true, /.info.js$/)
 Then require the RouterLayout, and add a route for the styleguide:
 
 ```js
-import { RouterLayout as StyleGuide } from 'simple-styleguide';
+import { RouterLayout as StyleGuide } from 'react-easy-styleguide';
 import { PropTypes } from 'react';
 
 ReactDOM.render(
@@ -53,7 +53,7 @@ If you start your app now, and go to `/styleguide`, you should be able to see th
 ```js
 // The component you want to add
 import Button from './Button';
-import { register } from 'simple-styleguide';
+import { register } from 'react-easy-styleguide';
 
 // Register takes 5 parameters:
 register(
@@ -85,7 +85,7 @@ register(
 You can also use the `action` helper function to easily log things that happen, for example in onClick Handlers:
 
 ```js
-import { register, action } from 'simple-styleguide';
+import { register, action } from 'react-easy-styleguide';
 …
 {
   name: 'Default',
@@ -101,7 +101,7 @@ When the function is executed, it will print out a console message with the text
 `[ACTION] Basic button happenings! ▶︎ [Proxy, Event]`
 
 ### Colors and Typography
-Styleguides often have a list of colors and Typographic styles, simple-styleguide comes with ways of easily registering these for use in the styleguide: `ColorList` and `TypeList`, respectively.
+Styleguides often have a list of colors and Typographic styles, react-easy-styleguide comes with ways of easily registering these for use in the styleguide: `ColorList` and `TypeList`, respectively.
 
 ![Typography](https://cloud.githubusercontent.com/assets/577144/23210204/72097e08-f8f4-11e6-867b-18ba8ff5569b.png)
 
@@ -110,7 +110,7 @@ Styleguides often have a list of colors and Typographic styles, simple-styleguid
 Like with components, you can create a `design.info.js` file and call the `register()` from it. Instead of passing a Component class, use the `ColorList` or `TypeList` components, they each receive an object, the keys being the display name, and the value the CSS class that should be applied to the element to see the style.
 
 ```js
-import { register, ColorList, TypeList } from 'simple-styleguide';
+import { register, ColorList, TypeList } from 'react-easy-styleguide';
 
 register(
   ColorList({
@@ -184,7 +184,7 @@ export default connect(
 After initializing a require context, call `StyleGuide.init()`:
 
 ```js
-import { init, list, Viewer } from 'simple-styleguide';
+import { init, list, Viewer } from 'react-easy-styleguide';
 import { PropTypes, Component } from 'react';
 
 // Assuming you have a /components folder,
