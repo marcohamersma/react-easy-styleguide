@@ -1,12 +1,12 @@
 {
   "name": "react-easy-styleguide",
-  "version": "0.0.1",
-  "description": "This is a tool to easily get a styleguide integrated into your project. It works great with `create-react-app`.",
+  "version": "1.0.0",
+  "description": "Easy styleguide/component library tool for React projects with support for global styles. Works great with create-react-app",
   "main": "dist/react-easy-styleguide.js",
   "scripts": {
     "build": "webpack --optimize-minimize",
     "dev": "webpack --watch",
-    "prepublish": "echo \"Time to move the dependencies to devDependencies and remove the dist folder from git\" && exit 1"
+    "prepublish": "npm run build"
   },
   "eslintConfig": {
     "extends": "react-app"
