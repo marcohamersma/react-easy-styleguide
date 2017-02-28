@@ -23,6 +23,21 @@
       text-decoration: underline;
     }
   }
+
+  ul {
+    list-style: disc outside;
+  }
+
+  ol {
+    list-style: decimal outside;
+  }
+
+  ul,
+  ol {
+    padding-left: 1.4em;
+    margin-top: 1em;
+    margin-bottom: 1em;
+  }
 }
 
 .styleGuide__contents {
