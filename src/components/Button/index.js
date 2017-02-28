@@ -20,6 +20,8 @@ Button.defaultProps = {
   type: 'default'
 }
 
+Button.displayName = "Buttons";
+
 Button.propTypes = {
   label: React.PropTypes.string.isRequired,
   onClick: React.PropTypes.func,

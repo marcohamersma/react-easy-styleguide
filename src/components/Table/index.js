@@ -40,4 +40,6 @@ Table.propTypes = {
   data: React.PropTypes.arrayOf(React.PropTypes.array).isRequired
 }
 
+Table.displayName = "Table";
+
 export default Table;
