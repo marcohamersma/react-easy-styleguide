@@ -11,10 +11,11 @@ const styleguideContext = require.context('./components/', true, /.info.js$/)
 ReactDOM.render(
   <Router history={browserHistory}>
     <Route
-      path="/react-easy-styleguide/(/:component(/:variation))"
+      path="/react-easy-styleguide(/:component(/:variation))"
       component={StyleGuide(styleguideContext, {
         name: 'My StyleGuide',
-        propTypes: React.PropTypes
+        propTypes: React.PropTypes,
+        path: 'react-easy-styleguide/'
       })}
     />
     <Redirect from="/" to="/react-easy-styleguide/" />
