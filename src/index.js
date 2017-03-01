@@ -25,17 +25,19 @@ const defaultVariations = [{
 let timeout;
 let componentWarnings = [];
 
-function componentNameWarning(name) {
-  componentWarnings.push(name);
-
+function displayComponentWarnings() {
   if (timeout) {
     clearTimeout(timeout);
   }
 
   timeout = setTimeout(() => {
-    console.warn(`The components ${componentWarnings.join(', ')} do not have a name or displayName, this is not advisable as some bundlers mangle the names. \nEither add a displayName to the component or pass the name to the register function.`);
+    console.warn(`The components ${componentWarnings.join(', ')} do not have a name or displayName, which might result components names becoming unrecognisable in minified/mangled production code.\nEither add a displayName to the component or pass the name to the register function.`);
     componentWarnings = [];
   }, 100);
+}
+
+function componentNameWarning(name) {
+  componentWarnings.push(name);
 }
 
 function getVariations(variations, defaultProps) {
@@ -112,7 +114,10 @@ export const action = (message) => function() {
   console.log('[ACTION]', message, arguments)
 };
 
-export function list() { return components };
+export function list() {
+  displayComponentWarnings();
+  return components;
+};
 
 export function get(componentSlug, variation) {
   const component = components.find( c => c.slug === componentSlug);
