@@ -92,6 +92,8 @@ export function register(componentProps, readme, variations, defaultProps, Wrapp
     propTypesComponent: componentProps
   };
 
+  component.propTypesComponent = component.propTypesComponent || component.Component;
+
   const realComponent = component.propTypesComponent;
   component.name =  component.name || realComponent.displayName || realComponent.name;
 
