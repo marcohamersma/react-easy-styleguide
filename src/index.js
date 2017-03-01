@@ -31,6 +31,7 @@ function displayComponentWarnings() {
   }
 
   timeout = setTimeout(() => {
+    if (!componentWarnings.length) return;
     console.warn(`The components ${componentWarnings.join(', ')} do not have a name or displayName, which might result components names becoming unrecognisable in minified/mangled production code.\nEither add a displayName to the component or pass the name to the register function.`);
     componentWarnings = [];
   }, 100);
