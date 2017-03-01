@@ -1,3 +1,4 @@
+import path from 'path';
 import marked from 'marked';
 import isPlainObject from 'lodash.isPlainObject';
 import slug from 'slug';
@@ -20,6 +21,22 @@ const defaultVariations = [{
   name: 'Default',
   props: {}
 }];
+
+let timeout;
+let componentWarnings = [];
+
+function componentNameWarning(name) {
+  componentWarnings.push(name);
+
+  if (timeout) {
+    clearTimeout(timeout);
+  }
+
+  timeout = setTimeout(() => {
+    console.warn(`The components ${componentWarnings.join(', ')} do not have a name or displayName, this is not advisable as some bundlers mangle the names. \nEither add a displayName to the component or pass the name to the register function.`);
+    componentWarnings = [];
+  }, 100);
+}
 
 function getVariations(variations, defaultProps) {
   const hasVariations = variations && variations.length;
@@ -74,6 +91,10 @@ export function register(componentProps, readme, variations, defaultProps, Wrapp
 
   const realComponent = component.propTypesComponent;
   component.name =  component.name || realComponent.displayName || realComponent.name;
+
+  if (component.name === realComponent.name) {
+    componentNameWarning(component.name);
+  }
 
   components.push({
     name: component.name,
