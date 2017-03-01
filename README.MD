@@ -1,4 +1,4 @@
-# react-easy-styleguide ([Demo](https://marcohamersma.github.io/react-easy-styleguide))
+# react-easy-styleguide ([demo](https://marcohamersma.github.io/react-easy-styleguide))
 [![npm version](https://badge.fury.io/js/react-easy-styleguide.svg)](http://badge.fury.io/js/react-easy-styleguide)
 
 This is a tool to easily get a styleguide integrated into your project. It works great with `create-react-app`.
@@ -42,12 +42,15 @@ ReactDOM.render(
       component={StyleGuide(styleguideContext, {
         name: 'My StyleGuide',
         propTypes: React.PropTypes
+        path: '/styleguide' // this is the default
       })}
     />
   </Router>
 );
 ```
-The second argument to the `StyleGuide`/`RouterLayout` method is optional, but allows for passing a `name` (title) and a `propTypes` property. Passing along a PropTypes property will allow the (limited) detection of PropTypes for your components.
+The second argument to the `StyleGuide`/`RouterLayout` method is optional, but allows for passing a `name` (title) and a `propTypes` and `path` property. Passing along a PropTypes property will allow the (limited) detection of PropTypes for your components.
+
+By default, `react-easy-styleguide` expects to be mounted at `/styleguide`, but by passing `path` you can change this to anything else, for example when your entire app is mounted in a subfolder.
 
 If you start your app now, and go to `/styleguide`, you should be able to see the styleguide running.
 
@@ -81,6 +84,23 @@ register(
   }
   // 5. Optionally, a Higher Order or wrapping component, in case you need to pass some extra props to it, like a Redux connected component.
   reduxWrapper
+)
+```
+
+If you intend to use `react-easy-stylesheet` in a minified bundle on a server, your component names might get mangled and show up as one-letter items in the navigation. You can add a `displayName` property to the component, or manually register the name:
+
+### Manual registration
+In some cases, you might want to manually pass the name and proptypes to the `register` function, for example the name or proptypes cannot be obtained from the component passed. This might happen when you've wrapped your components in another component.
+
+
+```js
+register(
+  {
+    Component: ComponentToBeRendered,
+    propTypesComponent: ComponentToGetPropTypesFrom,
+    name: 'Input' // Optional, defaults to propTypesComponent's displayName or name.
+  },
+  …
 )
 ```
 
@@ -145,20 +165,6 @@ require('./design.info.js');
 const styleguideContext = require.context('./components/', true, /.info.js$/)
 ```
 
-### Registering higher order components
-If the component you passed to [`register`](#adding-components-to-your-styleguide)'s first parameter is contained inside another one, simple-stype-guide will not be able to accurately detect the name and proptypes of the component, you can pass these manually by passing an Object instead:
-
-```js
-register(
-  {
-    Component: ComponentToBeRendered,
-    propTypesComponent: ComponentToGetPropTypesFrom,
-    name: 'Input' // Optional, defaults to propTypesComponent's displayName or name.
-  },
-  …
-)
-```
-
 ### Higher Order Components / Redux
 Sometimes you might want to wrap a styleguide component in another component to make sure the dataflow is correct. The fifth parameter in the [`register`](#adding-components-to-your-styleguide) function takes a wrapping component class, which will be passed a `Component` and `componentProps` prop. Here's an example component you might pass:
 
@@ -218,4 +224,4 @@ class StyleGuide extends Component {
 
 By manipulating the state or otherwise changing the props passed to `Viewer`, you can show what component will be rendered out. If `variation` is blank, it will show all variations.
 
-For a list of all components, you can call `simplestyleGuide.list()`. You can then make navigation of some sorts that will manipulate the state for a component like the one above.
+For a list of all components, you can call `easyStyleGuide.list()`. You can then make navigation of some sorts that will manipulate the state for a component like the one above.

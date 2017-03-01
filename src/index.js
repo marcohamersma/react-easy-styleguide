@@ -123,3 +123,11 @@ export function TypeList(typeVariations) {
 
   return Component;
 }
+
+export function componentPath(slug) {
+  return path.join(
+    '/',
+    styleguideProps.path || '/styleguide',
+    slug
+  );
+}

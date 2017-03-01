@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router';
 import bemHelper from 'react-bem-helper';
+import { componentPath as url } from './index';
 
 const BEMClassName = new bemHelper('styleGuideNav');
-const url = path => '/styleguide/' + path;
 
 const Variations = (variations, parentSlug) => {
   if (variations.length < 2) return null;
@@ -24,7 +24,7 @@ const Variations = (variations, parentSlug) => {
   )
 }
 
-const ListItem = ({ slug, name, variations, singlePane}, currentItem) => (
+const ListItem = ({ slug, name, variations, singlePane }, currentItem) => (
   <li key={slug} {...BEMClassName('list-item')}>
     <Link
       to={variations.length === 1 ? url([slug, variations[0].slug].join('/')) : url(slug)}
