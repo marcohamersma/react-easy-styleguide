@@ -55,6 +55,7 @@ By default, `react-easy-styleguide` expects to be mounted at `/styleguide`, but 
 If you start your app now, and go to `/styleguide`, you should be able to see the styleguide running.
 
 ## Adding components to your styleguide
+For each component you want to show in your styleguide, you need to call `react-easy-styleguide`'s `register` function as shown below. I recommend you create a `.info.js` file for each component. For example, if you have a file called Button.js, you can create a `buttons.info.js` file:
 
 ```js
 // The component you want to add
