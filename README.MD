@@ -9,6 +9,9 @@ _**note**: In the screenshots I used Bootstrap styles as a way of showing some b
 
 Although there are some really neat styleguide tools for React, they don't really work when you are not using CSS modules. If you rely on global css (for example because your components use styles from Bootstrap, or other CSS frameworks), it seems impossible to use those styles properly without styles conflicting.
 
+## Screencast
+I've recorded a screencast showing how to integrate the tool into your project. [View the screencast](https://www.youtube.com/watch?v=MYsTMgN3jNQ).
+
 ## Installation
 run `npm install react-easy-styleguide`
 
