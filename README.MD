@@ -18,22 +18,35 @@ run `npm install react-easy-styleguide`
 ## Requirements
 The module relies on Webpack's `require.context`, and therefore it needs webpack. I think that should be the only required thing, but let me know in the Issues if there's a problem.
 
-## Setup with React-Router
-React router is recommended, but [not necessary](#setup-without-react-router).
-
-To start, we need to tell the styleguide which components to load, it expects a `component.info.js` file to be present for every component in your styleguide, so we use WebPack's requireContext to load them dynamically. You might want to do this in the file where you declare your routes.
+## Setup
+To start, we need to tell the styleguide which components to load, it expects a `component.info.js` file to be present for every component in your styleguide, so we use WebPack's requireContext to load them dynamically.
 
 ```js
 // Assuming you have a /components folder,
 const styleguideContext = require.context('./components/', true, /.info.js$/)
 ```
 
-Then require the RouterLayout, and add a route for the styleguide:
+Then require the create function from `react-easy-styleguide`. This function takes a couple of setup parameters and will return a React component:
 
 ```js
-import { RouterLayout as StyleGuide } from 'react-easy-styleguide';
-import { PropTypes } from 'react';
+import { create as createStyleGuide } from 'react-easy-styleguide';
+import PropTypes from 'prop-types';
 
+const Styleguide = createStyleGuide(styleguideContext, {
+  name: 'My StyleGuide',
+  propTypes: PropTypes
+  path: '/styleguide' // this is the default
+})
+```
+
+The second argument to styleguide's `create` function is optional, but allows for passing a `name` (title) and a `propTypes` and `path` property. Passing along a PropTypes property will allow the (limited) detection of PropTypes for your components.
+
+The component returned by the `create` function can receive two props: `component` and `variation`. This will tell the styleguide which component to load, and which variation of this component to highlight.
+
+If you are using react-router, you can mount this component like this:
+
+```js
+// Note: this example is still using react-router 3.0
 ReactDOM.render(
   <Router history={browserHistory}>
     <Route path="/" component={App}>
@@ -42,11 +55,7 @@ ReactDOM.render(
 
     <Route
       path="/styleguide(/:component(/:variation))"
-      component={StyleGuide(styleguideContext, {
-        name: 'My StyleGuide',
-        propTypes: React.PropTypes
-        path: '/styleguide' // this is the default
-      })}
+      component={StyleGuide}
     />
   </Router>
 );

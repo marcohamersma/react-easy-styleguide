@@ -2,12 +2,12 @@ import path from 'path';
 import marked from 'marked';
 import isPlainObject from 'lodash.isPlainObject';
 import slug from 'slug';
-import RouterLayout from './RouterLayout';
+import Layout from './Layout';
 import ColorListComponent from './ColorList';
 import TypeListComponent from './TypeList';
 import Viewer from './Viewer';
 
-export { RouterLayout };
+export { Layout };
 export { Viewer };
 
 const components = [];
@@ -84,6 +84,10 @@ export function init(context, props = {}) {
   Object.assign(styleguideProps, props);
 
   context.keys().forEach(context);
+
+export function create(context, props) {
+  init(context, props);
+  return Layout;
 }
 
 export function register(componentProps, readme, variations, defaultProps, Wrapper) {
@@ -122,7 +126,7 @@ export const action = (message) => function() {
 export function list() {
   displayComponentWarnings();
   return components;
-};
+}
 
 export function get(componentSlug, variation) {
   const component = components.find( c => c.slug === componentSlug);
@@ -133,7 +137,7 @@ export function get(componentSlug, variation) {
           : component.variations
 
   return { component, variations };
-};
+}
 
 export function getName() {
   return styleguideProps.name;
