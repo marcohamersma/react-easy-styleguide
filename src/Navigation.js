@@ -1,7 +1,7 @@
 import React from 'react';
-import { Link, withRouter } from 'react-router';
 import bemHelper from 'react-bem-helper';
 import { componentPath as url } from './index';
+import Link from './NavigationLink';
 
 const BEMClassName = new bemHelper('styleGuideNav');
 
@@ -40,14 +40,14 @@ const ListItem = ({ slug, name, variations, singlePane }, currentItem) => (
   </li>
 )
 
-const Navigation = ({ components, name, params }) => (
+const Navigation = ({ components, name, current }) => (
   <nav {...BEMClassName({ extra: 'styleGuide-element' })}>
     <Link to={url('')} {...BEMClassName('title')}>{name}</Link>
 
     <ul {...BEMClassName('list')}>
-      { components.map( c => ListItem(c, params.component)) }
+      { components.map( c => ListItem(c, current)) }
     </ul>
   </nav>
 );
 
-export default withRouter(Navigation);
+export default Navigation;
