@@ -5,6 +5,7 @@
 
   &__item {
     @include normalizeElement;
+    line-height: 1;
     list-style-type: none;
     margin: 10px 0;
     padding-bottom: 10px;

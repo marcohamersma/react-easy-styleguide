@@ -13,7 +13,7 @@
 
 .styleGuide-element {
   font-family: 'Gudea', sans-serif;
-  @include normalizeElement;
+  &, td, th { @include normalizeElement };
 
   a {
     text-decoration: none;
@@ -25,11 +25,19 @@
   }
 
   ul {
-    list-style: disc outside;
+    list-style: disc outside !important;
   }
 
   ol {
-    list-style: decimal outside;
+    list-style: decimal outside !important;
+  }
+
+  strong {
+    font-weight: bold
+  }
+
+  em {
+    font-style: italic;
   }
 
   ul,
