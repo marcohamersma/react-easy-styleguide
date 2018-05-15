@@ -25,6 +25,8 @@ const NotFound = () => (
 const PropTypeRow = (propType, propName, selectedVariation)  => {
   const stringifiedProp = selectedVariation
                             && stringifyProp(selectedVariation.props[propName]);
+  const valueToDisplay = stringifiedProp || propType.defaultValue;
+
   return (
     <tr key={propName}>
       <td><strong>{propName}:</strong></td>
@@ -35,13 +37,16 @@ const PropTypeRow = (propType, propName, selectedVariation)  => {
         </code>
       </td>
 
-      { stringifiedProp
+      { valueToDisplay
         ? (
-            <td className="sg-current" title={stringifiedProp}>
-              <code >{ stringifiedProp }</code>
+            <td className="sg-current" title={valueToDisplay}>
+              { valueToDisplay === propType.defaultValue
+                && <span className="sc">default</span>
+              }
+              <code >{ valueToDisplay }</code>
             </td>
           )
-        : null
+        : <td/>
       }
     </tr>
   )

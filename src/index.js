@@ -53,7 +53,11 @@ function getVariations(variations, defaultProps) {
   }))
 }
 
-function matchPropTypes(userPropTypes) {
+function matchPropTypes(component) {
+  const userPropTypes = component.propTypes;
+  const defaultProps = component.getDefaultProps
+                        ? component.getDefaultProps() : {};
+
   if (!userPropTypes || !styleguideProps.propTypes) return {};
   const proptypeList = Object.keys(styleguideProps.propTypes);
 
@@ -75,6 +79,7 @@ function matchPropTypes(userPropTypes) {
     }
 
     matches[key] = matchedProp || { name: 'unknown' };
+    matches[key].defaultValue = JSON.stringify(defaultProps[key]);
 
     return matches;
   }, {});
@@ -111,7 +116,7 @@ export function register(componentProps, readme, variations, defaultProps, Wrapp
     name: component.name,
     slug: slug(component.name),
     readme: marked(readme || ''),
-    propTypes: matchPropTypes(realComponent.propTypes),
+    propTypes: matchPropTypes(realComponent),
     variations: getVariations(variations, defaultProps),
     singlePane: !!component.Component.noStyleGuideVariations,
     Component: component.Component,
