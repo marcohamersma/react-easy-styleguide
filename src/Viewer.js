@@ -41,7 +41,7 @@ const PropTypeRow = (propType, propName, selectedVariation)  => {
         ? (
             <td className="sg-current" title={valueToDisplay}>
               { valueToDisplay === propType.defaultValue
-                && <span className="sc">default</span>
+                && <span className="sc">default&nbsp;</span>
               }
               <code >{ valueToDisplay }</code>
             </td>
