@@ -11,7 +11,11 @@ const BEMClassName = new bemHelper('styleGuide');
 export default class Layout extends React.PureComponent {
   render() {
     const components = styleGuide.list();
-    const { variation, component } = this.props;
+
+    // If we're being passed a `match` prop from react-router, use that
+    // to select the component + prop variables
+    const props = this.props.match ? this.props.match.params : this.props;
+    const { variation, component } = props;
 
     const name = styleGuide.getName();
 
@@ -35,5 +39,8 @@ export default class Layout extends React.PureComponent {
 
 Layout.propTypes = {
   variation: PropTypes.string,
-  component: PropTypes.string
+  component: PropTypes.string,
+  match: PropTypes.shape({
+    params: PropTypes.object.isRequired
+  })
 }

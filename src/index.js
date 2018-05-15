@@ -6,6 +6,7 @@ import Layout from './Layout';
 import ColorListComponent from './ColorList';
 import TypeListComponent from './TypeList';
 import Viewer from './Viewer';
+import { setRouter as linkSetRouter } from './NavigationLink'
 
 export { Layout };
 export { Viewer };
@@ -89,6 +90,8 @@ export function init(context, props = {}) {
   Object.assign(styleguideProps, props);
 
   context.keys().forEach(context);
+  if (props.routerLink) linkSetRouter(props.routerLink);
+}
 
 export function create(context, props) {
   init(context, props);

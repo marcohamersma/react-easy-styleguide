@@ -45,22 +45,20 @@ The component returned by the `create` function can receive two props: `componen
 
 If you are using react-router, you can mount this component like this:
 
-```js
-// Note: this example is still using react-router 3.0
-ReactDOM.render(
-  <Router history={browserHistory}>
-    <Route path="/" component={App}>
-      …
-    </Route>
+```jsx
+const Styleguide = createStyleGuide(styleguideContext, {
+  // pass `Link` or NavLink` to the styleguide to use react-router
+  // for navigating.
+  routerLink: require('react-router-dom').NavLink,
+  …
+})
 
-    <Route
-      path="/styleguide(/:component(/:variation))"
-      component={StyleGuide}
-    />
-  </Router>
-);
+<Route
+  path="/styleguide/:component?/:variation?"
+  component={Styleguide}
+/>
+
 ```
-The second argument to the `StyleGuide`/`RouterLayout` method is optional, but allows for passing a `name` (title) and a `propTypes` and `path` property. Passing along a PropTypes property will allow the (limited) detection of PropTypes for your components.
 
 By default, `react-easy-styleguide` expects to be mounted at `/styleguide`, but by passing `path` you can change this to anything else, for example when your entire app is mounted in a subfolder.
 
@@ -156,7 +154,7 @@ register(
     'dark-mid':   'color-dark',
     'light':      'color-light'
   }),
-  `The colors of this app are very important!`,
+  `The colors of this app are very important!`
 )
 
 register(
@@ -166,7 +164,7 @@ register(
     'Body text':       'type-body',
     'Smaller':         'type-smaller',
   }),
-  `The typography of this app is very important!`,
+  `The typography of this app is very important!`
 )
 ```
 
@@ -201,40 +199,3 @@ export default connect(
 )(StyleGuideWrapper)
 
 ```
-
-## Setup without React-Router
-After initializing a require context, call `StyleGuide.init()`:
-
-```js
-import { init, list, Viewer } from 'react-easy-styleguide';
-import { PropTypes, Component } from 'react';
-
-// Assuming you have a /components folder,
-const styleguideContext = require.context('./components/', true, /.info.js$/)
-
-init(styleguideContext);
-
-// Example component
-class StyleGuide extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      component: 'Button',
-      variation: null
-    }
-  }
-
-  render() {
-    return (
-      <Viewer
-        component={this.state.component}
-        variation={this.state.variation}
-      />
-    )
-  }
-}
-```
-
-By manipulating the state or otherwise changing the props passed to `Viewer`, you can show what component will be rendered out. If `variation` is blank, it will show all variations.
-
-For a list of all components, you can call `easyStyleGuide.list()`. You can then make navigation of some sorts that will manipulate the state for a component like the one above.
