@@ -24,7 +24,6 @@ const LinkWrapper = props => <LinkComponent {...props} />;
 LinkWrapper.displayName = "StyleguideLinkWrapper";
 
 export const setRouter = routerLink => {
-  console.log('setting router');
   LinkComponent = routerLink;
 }
 
