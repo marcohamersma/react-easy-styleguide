@@ -1,47 +1,59 @@
-# react-easy-styleguide ([demo](https://marcohamersma.github.io/react-easy-styleguide))
+# react-easy-styleguide
 [![npm version](https://badge.fury.io/js/react-easy-styleguide.svg)](http://badge.fury.io/js/react-easy-styleguide)
 
 This is a tool to easily get a styleguide integrated into your project. It works great with `create-react-app`.
 
-_**note**: In the screenshots I used Bootstrap styles as a way of showing some basic components and styles, but of course you can use it with your own styles and components_.
+_**note**: In the screenshots I used Bootstrap styles as a way of showing some basic components and styles, but of course you can use it with your own styles and components_. ([View the demo](https://marcohamersma.github.io/react-easy-styleguide))
 
 ![](https://cloud.githubusercontent.com/assets/577144/23210205/722b28e6-f8f4-11e6-8366-c262775c98cb.png)
 
 Although there are some really neat styleguide tools for React, they don't really work when you are not using CSS modules. If you rely on global css (for example because your components use styles from Bootstrap, or other CSS frameworks), it seems impossible to use those styles properly without styles conflicting.
 
-## Screencast
+**Screencast**
 I've recorded a screencast showing how to integrate the tool into your project. [View the screencast](https://www.youtube.com/watch?v=MYsTMgN3jNQ).
+_Note: it was recorded for version 1.0, which has some slight API differences_.
 
-## Installation
-run `npm install react-easy-styleguide`
+- [Requirements](#requirements)
+- [Installation](#installation)
+- [Setup](#setup)
+  - [The Styleguide React Component](#the-styleguide-react-component)
+- [Adding components to your styleguide](#adding-components-to-your-styleguide)
+  - [Manual registration](#manual-registration)
+  - [Action helper](#action-helper)
+- [Colors and Typography](#colors-and-typography)
+  - [Higher Order Components / Redux](#higher-order-components-redux)
 
 ## Requirements
 The module relies on Webpack's `require.context`, and therefore it needs webpack. I think that should be the only required thing, but let me know in the Issues if there's a problem.
 
+## Installation
+run `npm install react-easy-styleguide`
+
 ## Setup
-To start, we need to tell the styleguide which components to load, it expects a `component.info.js` file to be present for every component in your styleguide, so we use WebPack's requireContext to load them dynamically.
+In a bit, you will be making a `component.info.js` for every component in your styleguide, so to prepare the styleguide for this, we use a webpack `requireContext` to load them dynamically.
 
 ```js
 // Assuming you have a /components folder,
 const styleguideContext = require.context('./components/', true, /.info.js$/)
 ```
 
-Then require the create function from `react-easy-styleguide`. This function takes a couple of setup parameters and will return a React component:
+Then `require` the create function from `react-easy-styleguide`. This function takes a couple of setup parameters and will return a React component (the styleguide layout):
 
 ```js
 import { create as createStyleGuide } from 'react-easy-styleguide';
 import PropTypes from 'prop-types';
 
 const Styleguide = createStyleGuide(styleguideContext, {
-  name: 'My StyleGuide',
+  name: 'My Styleguide',
   propTypes: PropTypes
   path: '/styleguide' // this is the default
 })
 ```
 
-The second argument to styleguide's `create` function is optional, but allows for passing a `name` (title) and a `propTypes` and `path` property. Passing along a PropTypes property will allow the (limited) detection of PropTypes for your components.
+The second argument to styleguide's `create` function is optional, but allows for passing a `name` (title)`, `propTypes` and `path` property. Passing along PropTypes (from the `prop-types` package on npm) will allow the (limited) detection of React PropTypes for your components.
 
-The component returned by the `create` function can receive two props: `component` and `variation`. This will tell the styleguide which component to load, and which variation of this component to highlight.
+### The Styleguide React Component
+The create function returns a new React component that receives two props: `component` and `variation`. This will tell the styleguide which component to load, and which variation of this component to highlight.
 
 If you are using react-router, you can mount this component like this:
 
@@ -53,12 +65,14 @@ const Styleguide = createStyleGuide(styleguideContext, {
   …
 })
 
+// The component will automatically detect if it's passed URL parameters
 <Route
   path="/styleguide/:component?/:variation?"
   component={Styleguide}
 />
-
 ```
+
+If you don't use react router, you can pass the `component` and `variation` props manually.
 
 By default, `react-easy-styleguide` expects to be mounted at `/styleguide`, but by passing `path` you can change this to anything else, for example when your entire app is mounted in a subfolder.
 
@@ -116,7 +130,7 @@ register(
 ```
 
 ### Action helper
-You can also use the `action` helper function to easily log things that happen, for example in onClick Handlers:
+You can also use the `action` helper function to log things that happen, for example in onClick Handlers:
 
 ```js
 import { register, action } from 'react-easy-styleguide';
@@ -126,15 +140,15 @@ import { register, action } from 'react-easy-styleguide';
   description: 'How do you like _this_ description?',
   props: {
     label: "Hello!",
-    onClick: action('Basic button happenings!')
+    onClick: action('You clicked a button!')
   }
 },
 ```
 
 When the function is executed, it will print out a console message with the text you provided and the arguments passed, something similar to this:
-`[ACTION] Basic button happenings! ▶︎ [Proxy, Event]`
+`[ACTION] You clicked a button!, (event)`
 
-### Colors and Typography
+## Colors and Typography
 Styleguides often have a list of colors and Typographic styles, react-easy-styleguide comes with ways of easily registering these for use in the styleguide: `ColorList` and `TypeList`, respectively.
 
 ![Typography](https://cloud.githubusercontent.com/assets/577144/23210204/72097e08-f8f4-11e6-867b-18ba8ff5569b.png)
@@ -168,7 +182,7 @@ register(
 )
 ```
 
-#### A note on component order
+**A note on component order**
 Although `*.info` files in the component folder should be picked up automatically, the order in which this happens can be arbitrary. Since you might want to have the colors and typography at the top of the component list, you might want to explicitly import/require this file before you create the styleguideContext:
 
 ```js
