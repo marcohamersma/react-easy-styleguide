@@ -5,3 +5,4 @@ build
 src
 *sublime-*
 webpack.config.js
+tsconfig.json
