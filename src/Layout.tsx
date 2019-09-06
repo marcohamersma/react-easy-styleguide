@@ -4,20 +4,42 @@ import * as styleGuide from './index'
 import bemHelper from 'react-bem-helper'
 import './styles/styles.scss'
 import Navigation from './Navigation'
-import Viewer from './Viewer'
+import { Viewer } from './Viewer'
 import PropTypes from 'prop-types'
+import { ComponentToShow } from './types'
 
 const BEMClassName = new bemHelper('styleGuide')
 
-const Layout = layoutProps => {
+interface ReactRouterProps {
+  match: {
+    params: ComponentToShow
+  }
+}
+interface ReactRouterProps2 {
+  params: ComponentToShow
+}
+
+/**
+ * This is quite unclear at the moment, sorry. I need to fix this when
+ * I update to support the newest react-router
+ */
+type LayoutProps = ComponentToShow | ReactRouterProps | ReactRouterProps2
+
+const isReactRouterProps = (props: LayoutProps): props is ReactRouterProps =>
+  props.hasOwnProperty('match')
+const isReactRouterProps2 = (props: LayoutProps): props is ReactRouterProps2 =>
+  props.hasOwnProperty('params')
+
+export const Layout = (layoutProps: LayoutProps) => {
   const components = styleGuide.list()
 
   // If we're being passed a `match` prop from react-router, use that
   // to select the component + prop variables
   let props = layoutProps
-  if (layoutProps.match) props = layoutProps.match.params
-  if (layoutProps.params) props = layoutProps.params
-  const { variation, component } = props
+  if (isReactRouterProps(layoutProps)) props = layoutProps.match.params
+  if (isReactRouterProps2(layoutProps)) props = layoutProps.params
+
+  const { variation, component } = props as ComponentToShow
 
   const name = styleGuide.getName()
 
@@ -46,5 +68,3 @@ Layout.propTypes = {
   }),
   params: PropTypes.object,
 }
-
-export default Layout

@@ -6,9 +6,7 @@
     "sourceMap": true,
     "jsx": "react",
     "outDir": "./dist/",
-
-    // "declaration": true,
-    "allowJs": true,
+    "declaration": true,
 
     /* Strict Type-Checking Options */
     "strict": false /* Enable all strict type-checking options. */,
