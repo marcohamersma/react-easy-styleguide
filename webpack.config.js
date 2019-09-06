@@ -3,7 +3,12 @@ var name = 'react-easy-styleguide';
 var webpack = require('webpack');
 
 module.exports = {
-  entry: './src/index.js',
+  entry: './src/index.ts',
+  resolve: {
+    extensions: ['.tsx', '.ts', '.js']
+  },
+  mode: 'development',
+  devtool: 'inline-source-map',
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: name + '.js',
@@ -16,6 +21,11 @@ module.exports = {
   },
   module: {
     rules: [
+      {
+        test: /\.tsx?$/,
+        use: 'ts-loader',
+        exclude: /node_modules/
+      },
       {
         test: /\.(js|jsx)$/,
         use: 'babel-loader',

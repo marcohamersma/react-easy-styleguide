@@ -11,9 +11,9 @@ import { setRouter as linkSetRouter } from './NavigationLink'
 export { Layout };
 export { Viewer };
 
-const components = [];
+const components:any[] = [];
 
-let styleguideProps = {
+let styleguideProps:any = {
   name: 'Your Easy Styleguide',
   propTypes: {}
 }
@@ -24,7 +24,7 @@ const defaultVariations = [{
 }];
 
 let timeout;
-let componentWarnings = [];
+let componentWarnings:string[] = [];
 
 function displayComponentWarnings() {
   if (timeout) {
@@ -80,13 +80,14 @@ function matchPropTypes(component) {
     }
 
     matches[key] = matchedProp || { name: 'unknown' };
-    matches[key].defaultValue = JSON.stringify(defaultProps[key]);
+    matches[key].defaultValue = defaultProps[key] ? JSON.stringify(defaultProps[key]) : undefined;
 
     return matches;
   }, {});
 }
 
-export function init(context, props = {}) {
+interface InitProps { routerLink?: any }
+export function init(context, props:InitProps = {}) {
   Object.assign(styleguideProps, props);
 
   context.keys().forEach(context);
@@ -152,7 +153,7 @@ export function getName() {
 }
 
 export function ColorList(colors) {
-  const Component = ColorListComponent.bind(null, colors);
+  const Component = ColorListComponent.bind(null, colors) as any;
   Component.displayName = "Colors";
   Component.noStyleGuideVariations = true;
 
@@ -160,7 +161,7 @@ export function ColorList(colors) {
 }
 
 export function TypeList(typeVariations) {
-  const Component = TypeListComponent.bind(null, typeVariations);
+  const Component = TypeListComponent.bind(null, typeVariations) as any;
   Component.displayName = "Typography";
   Component.noStyleGuideVariations = true;
 
