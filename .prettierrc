@@ -2,6 +2,5 @@
   "requirePragma": true,
   "trailingComma": "all",
   "jsxBracketSameLine": false,
-  "singleQuote": true,
-  "semi": false
+  "singleQuote": true
 }

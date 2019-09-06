@@ -1,3 +1,4 @@
+/** @prettier */
 import path from 'path';
 import marked from 'marked';
 import isPlainObject from 'lodash.isPlainObject';
@@ -6,25 +7,47 @@ import Layout from './Layout';
 import ColorListComponent from './ColorList';
 import TypeListComponent from './TypeList';
 import Viewer from './Viewer';
-import { setRouter as linkSetRouter } from './NavigationLink'
+import { setRouter as linkSetRouter } from './NavigationLink';
 
 export { Layout };
 export { Viewer };
 
-const components:any[] = [];
+const components: any[] = [];
 
-let styleguideProps:any = {
-  name: 'Your Easy Styleguide',
-  propTypes: {}
+interface InitProps {
+  /** Title shown in the UI */
+  name: string;
+  /**
+   * Passing either `ReactRouter.Link` or `ReactRouter.NavLink` will use those
+   * for navigating between components
+   */
+  routerLink?: any;
+  /**
+   * Pass through your application's version of the `prop-types` package.
+   * This allows for the (limited) detection of PropTypes for your components.
+   */
+  propTypes?: any;
+  /**
+   * Define at what path in the URL the styleguide will be mounted, defaults to
+   * `/styleguide/`
+   */
+  path?: string;
 }
 
-const defaultVariations = [{
-  name: 'Default',
-  props: {}
-}];
+let styleguideProps: InitProps = {
+  name: 'Your Easy Styleguide',
+  propTypes: {},
+};
+
+const defaultVariations = [
+  {
+    name: 'Default',
+    props: {},
+  },
+];
 
 let timeout;
-let componentWarnings:string[] = [];
+let componentWarnings: string[] = [];
 
 function displayComponentWarnings() {
   if (timeout) {
@@ -33,7 +56,11 @@ function displayComponentWarnings() {
 
   timeout = setTimeout(() => {
     if (!componentWarnings.length) return;
-    console.warn(`The components ${componentWarnings.join(', ')} do not have a name or displayName, which might result components names becoming unrecognisable in minified/mangled production code.\nEither add a displayName to the component or pass the name to the register function.`);
+    console.warn(
+      `The components ${componentWarnings.join(
+        ', ',
+      )} do not have a name or displayName, which might result components names becoming unrecognisable in minified/mangled production code.\nEither add a displayName to the component or pass the name to the register function.`,
+    );
     componentWarnings = [];
   }, 100);
 }
@@ -45,24 +72,25 @@ function componentNameWarning(name) {
 function getVariations(variations, defaultProps) {
   const hasVariations = variations && variations.length;
 
-  return (
-    hasVariations ? variations : defaultVariations
-  ).map( v => Object.assign({}, v, {
-    props: Object.assign({}, defaultProps, v.props),
-    description: marked(v.description || ''),
-    slug: slug(v.name)
-  }))
+  return (hasVariations ? variations : defaultVariations).map(v =>
+    Object.assign({}, v, {
+      props: Object.assign({}, defaultProps, v.props),
+      description: marked(v.description || ''),
+      slug: slug(v.name),
+    }),
+  );
 }
 
 function matchPropTypes(component) {
   const userPropTypes = component.propTypes;
   const defaultProps = component.getDefaultProps
-                        ? component.getDefaultProps() : {};
+    ? component.getDefaultProps()
+    : {};
 
   if (!userPropTypes || !styleguideProps.propTypes) return {};
   const proptypeList = Object.keys(styleguideProps.propTypes);
 
-  return Object.keys(userPropTypes).reduce( (matches, key) => {
+  return Object.keys(userPropTypes).reduce((matches, key) => {
     const value = userPropTypes[key];
     let matchedProp;
 
@@ -80,14 +108,15 @@ function matchPropTypes(component) {
     }
 
     matches[key] = matchedProp || { name: 'unknown' };
-    matches[key].defaultValue = defaultProps[key] ? JSON.stringify(defaultProps[key]) : undefined;
+    matches[key].defaultValue = defaultProps[key]
+      ? JSON.stringify(defaultProps[key])
+      : undefined;
 
     return matches;
   }, {});
 }
 
-interface InitProps { routerLink?: any }
-export function init(context, props:InitProps = {}) {
+export function init(context, props: InitProps = styleguideProps) {
   Object.assign(styleguideProps, props);
 
   context.keys().forEach(context);
@@ -99,18 +128,28 @@ export function create(context, props) {
   return Layout;
 }
 
-export function register(componentProps, readme, variations, defaultProps, Wrapper) {
-  const component = isPlainObject(componentProps) ? componentProps : {
-    Component: componentProps,
-    propTypesComponent: componentProps
-  };
+export function register(
+  componentProps,
+  readme,
+  variations,
+  defaultProps,
+  Wrapper,
+) {
+  const component = isPlainObject(componentProps)
+    ? componentProps
+    : {
+        Component: componentProps,
+        propTypesComponent: componentProps,
+      };
 
   // Handle some common user errors
-  component.propTypesComponent = component.propTypesComponent || component.Component;
+  component.propTypesComponent =
+    component.propTypesComponent || component.Component;
   component.Component = component.Component || component.component;
 
   const realComponent = component.propTypesComponent;
-  component.name =  component.name || realComponent.displayName || realComponent.name;
+  component.name =
+    component.name || realComponent.displayName || realComponent.name;
 
   if (component.name === realComponent.name) {
     componentNameWarning(component.name);
@@ -124,13 +163,14 @@ export function register(componentProps, readme, variations, defaultProps, Wrapp
     variations: getVariations(variations, defaultProps),
     singlePane: !!component.Component.noStyleGuideVariations,
     Component: component.Component,
-    Wrapper
-  })
+    Wrapper,
+  });
 }
 
-export const action = (message) => function() {
-  console.log('[ACTION]', message, arguments)
-};
+export const action = message =>
+  function() {
+    console.log('[ACTION]', message, arguments);
+  };
 
 export function list() {
   displayComponentWarnings();
@@ -138,12 +178,12 @@ export function list() {
 }
 
 export function get(componentSlug, variation) {
-  const component = components.find( c => c.slug === componentSlug);
+  const component = components.find(c => c.slug === componentSlug);
   if (!component) return {};
 
   const variations = variation
-          ? [component.variations.find( v => v.slug === variation)]
-          : component.variations
+    ? [component.variations.find(v => v.slug === variation)]
+    : component.variations;
 
   return { component, variations };
 }
@@ -154,7 +194,7 @@ export function getName() {
 
 export function ColorList(colors) {
   const Component = ColorListComponent.bind(null, colors) as any;
-  Component.displayName = "Colors";
+  Component.displayName = 'Colors';
   Component.noStyleGuideVariations = true;
 
   return Component;
@@ -162,16 +202,12 @@ export function ColorList(colors) {
 
 export function TypeList(typeVariations) {
   const Component = TypeListComponent.bind(null, typeVariations) as any;
-  Component.displayName = "Typography";
+  Component.displayName = 'Typography';
   Component.noStyleGuideVariations = true;
 
   return Component;
 }
 
 export function componentPath(slug) {
-  return path.join(
-    '/',
-    styleguideProps.path || '/styleguide',
-    slug
-  );
+  return path.join('/', styleguideProps.path || '/styleguide', slug);
 }
