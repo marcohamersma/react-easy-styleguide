@@ -6,6 +6,7 @@
   "scripts": {
     "build": "webpack --optimize-minimize",
     "dev": "webpack --watch",
+    "release": "standard-version",
     "prepublish": "npm run build"
   },
   "keywords": [
@@ -40,6 +41,7 @@
     "react": "^15.4.2",
     "sass-loader": "^4.1.1",
     "slug": "^0.9.1",
+    "standard-version": "^7.0.0",
     "style-loader": "^0.13.1",
     "webpack": "^2.2.1"
   },
