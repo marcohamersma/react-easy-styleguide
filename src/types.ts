@@ -1,4 +1,3 @@
-/** @prettier */
 
 export interface ComponentDefinition {
   Component: React.ReactElement

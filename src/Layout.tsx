@@ -1,4 +1,3 @@
-/** @prettier */
 import React from 'react'
 import * as styleGuide from './index'
 import bemHelper from 'react-bem-helper'

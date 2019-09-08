@@ -1,4 +1,3 @@
-/** @prettier */
 import React from 'react'
 import map from 'lodash.map'
 import { get } from './index'

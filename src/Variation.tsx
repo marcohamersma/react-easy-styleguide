@@ -1,4 +1,3 @@
-/** @prettier */
 import React from 'react'
 import { ComponentDefinition, Variation } from './types'
 

@@ -1,4 +1,3 @@
-/** @prettier */
 import path from 'path'
 import marked from 'marked'
 import isPlainObject from 'lodash.isPlainObject'

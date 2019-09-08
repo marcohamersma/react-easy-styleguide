@@ -1,5 +1,5 @@
 {
-  "requirePragma": true,
+  "requirePragma": false,
   "trailingComma": "all",
   "jsxBracketSameLine": false,
   "singleQuote": true,

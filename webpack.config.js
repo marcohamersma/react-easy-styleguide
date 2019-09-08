@@ -1,11 +1,11 @@
-var path = require('path');
-var name = 'react-easy-styleguide';
-var webpack = require('webpack');
+var path = require('path')
+var name = 'react-easy-styleguide'
+var webpack = require('webpack')
 
 module.exports = {
   entry: './src/index.ts',
   resolve: {
-    extensions: ['.tsx', '.ts', '.js']
+    extensions: ['.tsx', '.ts', '.js'],
   },
   mode: 'development',
   devtool: 'inline-source-map',
@@ -13,31 +13,29 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
     filename: name + '.js',
     library: name,
-    libraryTarget: "umd"
+    libraryTarget: 'umd',
   },
   externals: {
-    'react': 'commonjs react',
-    'react-router': 'commonjs react-router'
+    react: 'commonjs react',
+    'react-router': 'commonjs react-router',
   },
   module: {
     rules: [
       {
         test: /\.tsx?$/,
         use: 'ts-loader',
-        exclude: /node_modules/
+        exclude: /node_modules/,
       },
       {
         test: /\.(js|jsx)$/,
         use: 'babel-loader',
-        exclude: /node_modules/
+        exclude: /node_modules/,
       },
       {
         test: /\.scss$/,
-        use: ["style-loader", "css-loader", "sass-loader"]
-      }
-    ]
+        use: ['style-loader', 'css-loader', 'sass-loader'],
+      },
+    ],
   },
-  plugins: [
-    new webpack.IgnorePlugin(/unicode\/category\/So/)
-  ]
-};
+  plugins: [new webpack.IgnorePlugin(/unicode\/category\/So/)],
+}

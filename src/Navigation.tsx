@@ -1,8 +1,8 @@
-/** @prettier */
 import React from 'react'
 import bemHelper from 'react-bem-helper'
 import { componentPath as url } from './index'
 import Link from './NavigationLink'
+import { ComponentDefinition } from './types'
 
 const BEMClassName = new bemHelper('styleGuideNav')
 
@@ -25,7 +25,10 @@ const Variations = (variations, parentSlug) => {
   )
 }
 
-const ListItem = ({ slug, name, variations, singlePane }, currentItem) => (
+const ListItem = (
+  { slug, name, variations, singlePane }: ComponentDefinition,
+  currentItem,
+) => (
   <li key={slug} {...BEMClassName('list-item')}>
     <Link
       to={
@@ -43,7 +46,12 @@ const ListItem = ({ slug, name, variations, singlePane }, currentItem) => (
   </li>
 )
 
-const Navigation = ({ components, name, current }) => (
+interface NavigationProps {
+  components: ComponentDefinition[]
+  current: string
+  name: string
+}
+const Navigation = ({ components, name, current }: NavigationProps) => (
   <nav {...BEMClassName({ extra: 'styleGuide-element' })}>
     <Link to={url('')} {...BEMClassName('title')}>
       {name}
