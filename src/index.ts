@@ -71,10 +71,11 @@ function componentNameWarning(name) {
   componentWarnings.push(name)
 }
 
-function getVariations(variations: VariationInfo[], defaultProps) {
-  const hasVariations = variations && variations.length
-
-  return (hasVariations ? variations : defaultVariations).map(v =>
+function getVariations(variations?: VariationInfo[], defaultProps = {}) {
+  return (typeof variations !== 'undefined' && variations.length > 0
+    ? variations
+    : defaultVariations
+  ).map(v =>
     Object.assign({}, v, {
       props: Object.assign({}, defaultProps, v.props),
       description: marked(v.description || ''),
@@ -140,7 +141,7 @@ interface ComponentRegisterProps {
 export function register(
   componentProps: React.ReactElement | ComponentRegisterProps,
   readme: string | null | undefined,
-  variations: VariationInfo[],
+  variations?: VariationInfo[],
   defaultProps?: ComponentProps,
   Wrapper?: React.ReactElement,
 ) {
