@@ -1,6 +1,8 @@
 var path = require('path')
 var name = 'react-easy-styleguide'
 var webpack = require('webpack')
+var BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
+  .BundleAnalyzerPlugin
 
 module.exports = {
   entry: './src/index.ts',
@@ -37,5 +39,10 @@ module.exports = {
       },
     ],
   },
-  plugins: [new webpack.IgnorePlugin(/unicode\/category\/So/)],
+  plugins: [
+    new webpack.IgnorePlugin(/unicode\/category\/So/),
+    // new BundleAnalyzerPlugin({
+    //   analyzerPort: 8889,
+    // }),
+  ],
 }
