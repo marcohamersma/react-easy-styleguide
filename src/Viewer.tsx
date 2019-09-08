@@ -107,9 +107,13 @@ export const Viewer = (props: ComponentToShow) => {
         </div>
       ) : null}
 
-      {variations!.map(v =>
-        Variation(v, component, !!selectedVariation || singlePane),
-      )}
+      {variations!.map(v => (
+        <Variation
+          variation={v}
+          component={component}
+          hideMeta={!!selectedVariation || singlePane}
+        />
+      ))}
     </div>
   )
 }

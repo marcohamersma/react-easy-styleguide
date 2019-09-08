@@ -1,5 +1,5 @@
 import React from 'react'
-import { ComponentDefinition, Variation } from './types'
+import { ComponentDefinition, VariationInfo } from './types'
 
 const NotFound = () => (
   <div className="styleGuide-element styleGuide__panel" key="404">
@@ -32,25 +32,60 @@ function MetaWrapper(variation, component) {
   )
 }
 
-export function Variation(
-  variation: Variation,
-  component: ComponentDefinition,
-  hideMeta: boolean,
-) {
-  if (!variation) return NotFound()
+interface Props {
+  variation: VariationInfo
+  component: ComponentDefinition
+  hideMeta: boolean
+}
 
-  let Component: any = component.Wrapper
-    ? wrappedComponent(component)
-    : component.Component
+interface State {
+  hasError: boolean
+}
 
-  const { name, description, props } = variation
-  return (
-    <div key={name} className="styleGuide__panel">
-      {hideMeta ? (
-        <Component {...props} />
-      ) : (
-        MetaWrapper(variation, <Component {...props} />)
-      )}
-    </div>
-  )
+export class Variation extends React.PureComponent<Props, State> {
+  constructor(props) {
+    super(props)
+    this.state = { hasError: false }
+  }
+
+  static getDerivedStateFromError(error) {
+    // Update state so the next render will show the fallback UI.
+    return { hasError: true }
+  }
+
+  render() {
+    if (!this.props.variation) return NotFound()
+    const { component, variation, hideMeta } = this.props
+
+    let Component: any = component.Wrapper
+      ? wrappedComponent(component)
+      : component.Component
+
+    const { name, description, props } = variation
+    return (
+      <div key={name} className="styleGuide__panel">
+        {this.state.hasError ? (
+          MetaWrapper(
+            variation,
+            <div
+              className="styleGuide-element"
+              style={{ padding: 20, textAlign: 'center' }}
+            >
+              ❗️
+              <strong style={{ opacity: 0.5 }}>
+                <br />
+                An error occurred within this component.
+                <br />
+                Check the developer console for more information.
+              </strong>
+            </div>,
+          )
+        ) : this.props.hideMeta ? (
+          <Component {...props} />
+        ) : (
+          MetaWrapper(variation, <Component {...props} />)
+        )}
+      </div>
+    )
+  }
 }

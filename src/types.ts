@@ -1,4 +1,3 @@
-
 export interface ComponentDefinition {
   Component: React.ReactElement
   Wrapper?: React.ReactElement
@@ -7,14 +6,14 @@ export interface ComponentDefinition {
   readme: string
   singlePane: boolean
   slug: string
-  variations: Variation[]
+  variations: VariationInfo[]
 }
 
 export interface ComponentProps {
   [propName: string]: unknown
 }
 
-export interface Variation {
+export interface VariationInfo {
   description?: string
   name: string
   props: ComponentProps

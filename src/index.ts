@@ -6,7 +6,7 @@ import { Layout } from './Layout'
 import { ColorList as ColorListComponent } from './ColorList'
 import { TypeList as TypeListComponent } from './TypeList'
 import { Viewer } from './Viewer'
-import { ComponentDefinition, Variation, ComponentProps } from './types'
+import { ComponentDefinition, VariationInfo, ComponentProps } from './types'
 import { setRouter as linkSetRouter } from './NavigationLink'
 import { ReactComponentLike } from 'prop-types'
 
@@ -40,7 +40,7 @@ let styleguideProps: InitProps = {
   propTypes: {},
 }
 
-const defaultVariations: Variation[] = [
+const defaultVariations: VariationInfo[] = [
   {
     name: 'Default',
     slug: 'default',
@@ -71,7 +71,7 @@ function componentNameWarning(name) {
   componentWarnings.push(name)
 }
 
-function getVariations(variations: Variation[], defaultProps) {
+function getVariations(variations: VariationInfo[], defaultProps) {
   const hasVariations = variations && variations.length
 
   return (hasVariations ? variations : defaultVariations).map(v =>
@@ -140,7 +140,7 @@ interface ComponentRegisterProps {
 export function register(
   componentProps: React.ReactElement | ComponentRegisterProps,
   readme: string | null | undefined,
-  variations: Variation[],
+  variations: VariationInfo[],
   defaultProps?: ComponentProps,
   Wrapper?: React.ReactElement,
 ) {
