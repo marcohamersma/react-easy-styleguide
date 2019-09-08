@@ -1,6 +1,6 @@
 import path from 'path'
 import marked from 'marked'
-import isPlainObject from 'lodash.isPlainObject'
+import isPlainObject from 'lodash/isPlainObject'
 import slug from 'slug'
 import { Layout } from './Layout'
 import { ColorList as ColorListComponent } from './ColorList'

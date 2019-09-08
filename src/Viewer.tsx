@@ -1,5 +1,5 @@
 import React from 'react'
-import map from 'lodash.map'
+import map from 'lodash/map'
 import { get } from './index'
 import { Variation } from './Variation'
 

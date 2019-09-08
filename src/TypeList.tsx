@@ -1,5 +1,5 @@
 import React from 'react'
-import map from 'lodash.map'
+import map from 'lodash/map'
 import bemHelper from 'react-bem-helper'
 
 const BEMClassName = new bemHelper('styleGuideTypeList')
