@@ -22,6 +22,8 @@
     "react": "^15.0.0"
   },
   "devDependencies": {
+    "@commitlint/cli": "^8.1.0",
+    "@commitlint/config-conventional": "^8.1.0",
     "babel-core": "^6.22.1",
     "babel-loader": "^6.2.10",
     "babel-preset-es2015": "^6.22.0",
@@ -48,5 +50,15 @@
   "bugs": {
     "url": "https://github.com/marcohamersma/react-easy-styleguide/issues"
   },
-  "homepage": "https://github.com/marcohamersma/react-easy-styleguide#readme"
+  "homepage": "https://github.com/marcohamersma/react-easy-styleguide#readme",
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  }
 }
