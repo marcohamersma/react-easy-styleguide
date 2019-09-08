@@ -1,6 +1,6 @@
 {
   "name": "react-easy-styleguide",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Easy styleguide/component library tool for React projects with support for global styles. Works great with create-react-app",
   "main": "dist/react-easy-styleguide.js",
   "scripts": {
