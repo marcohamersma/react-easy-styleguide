@@ -6,9 +6,14 @@ import { Layout } from './Layout'
 import { ColorList as ColorListComponent } from './ColorList'
 import { TypeList as TypeListComponent } from './TypeList'
 import { Viewer } from './Viewer'
-import { ComponentDefinition, VariationInfo, ComponentProps } from './types'
 import { setRouter as linkSetRouter } from './NavigationLink'
-import { ReactComponentLike } from 'prop-types'
+import {
+  ComponentDefinition,
+  VariationInfo,
+  ComponentProps,
+  VariationDefinition,
+  WrapperProp,
+} from './types'
 
 export { Layout }
 export { Viewer }
@@ -71,13 +76,16 @@ function componentNameWarning(name) {
   componentWarnings.push(name)
 }
 
-function getVariations(variations?: VariationInfo[], defaultProps = {}) {
+function getVariations(
+  variations?: VariationDefinition[],
+  defaultProps?: ComponentProps | null,
+): VariationInfo[] {
   return (typeof variations !== 'undefined' && variations.length > 0
     ? variations
     : defaultVariations
   ).map(v =>
     Object.assign({}, v, {
-      props: Object.assign({}, defaultProps, v.props),
+      props: Object.assign({}, defaultProps || {}, v.props),
       description: marked(v.description || ''),
       slug: slug(v.name),
     }),
@@ -134,16 +142,17 @@ export function create(context, props) {
 interface ComponentRegisterProps {
   name?: string
   Component: React.ReactElement
-  propTypesComponent: React.ReactElement
+  propTypesComponent?: React.ReactElement
   component?: React.ReactElement
 }
 
+/** Registers a component for use in the styleguide */
 export function register(
   componentProps: React.ReactElement | ComponentRegisterProps,
   readme: string | null | undefined,
-  variations?: VariationInfo[],
-  defaultProps?: ComponentProps,
-  Wrapper?: React.ReactElement,
+  variations?: VariationDefinition[],
+  defaultProps?: ComponentProps | null,
+  Wrapper?: WrapperProp,
 ) {
   const component = (isPlainObject(componentProps)
     ? componentProps

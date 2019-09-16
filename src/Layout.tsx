@@ -29,12 +29,12 @@ const isReactRouterProps = (props: LayoutProps): props is ReactRouterProps =>
 const isReactRouterProps2 = (props: LayoutProps): props is ReactRouterProps2 =>
   props.hasOwnProperty('params')
 
-export const Layout = (layoutProps: LayoutProps) => {
+export const Layout = (layoutProps) => {
   const components = styleGuide.list()
 
   // If we're being passed a `match` prop from react-router, use that
   // to select the component + prop variables
-  let props = layoutProps
+  let props: LayoutProps = layoutProps
   if (isReactRouterProps(layoutProps)) props = layoutProps.match.params
   if (isReactRouterProps2(layoutProps)) props = layoutProps.params
 
