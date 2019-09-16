@@ -148,10 +148,25 @@ interface ComponentRegisterProps {
 
 /** Registers a component for use in the styleguide */
 export function register(
+  /** The React Class to add to the styleguide, or an object defining it */
   componentProps: React.ReactElement | ComponentRegisterProps,
+  /** Description to show on this component's page */
   readme: string | null | undefined,
+  /**
+   * An array of different variations of this component and each of their props
+   */
   variations?: VariationDefinition[],
+  /**
+   * Default props for each variation (will be merged with each variation's
+   * props)
+   */
   defaultProps?: ComponentProps | null,
+  /**
+   * Sometimes you might want to wrap a styleguide component in another
+   * component to make sure the dataflow is correct (for example with
+   * redux providers). You can pass a React Component or a function
+   * here that takes a `Component` and `componentProps`:
+   */
   Wrapper?: WrapperProp,
 ) {
   const component = (isPlainObject(componentProps)
@@ -187,8 +202,8 @@ export function register(
 }
 
 export const action = message =>
-  function() {
-    console.log('[ACTION]', message, arguments)
+  function(...args) {
+    console.log('[ACTION]', message, args)
   }
 
 export function list() {
