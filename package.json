@@ -2,10 +2,10 @@
   "name": "react-easy-styleguide",
   "version": "2.0.1",
   "description": "Easy styleguide/component library tool for React projects with support for global styles. Works great with create-react-app",
-  "main": "dist/react-easy-styleguide.js",
+  "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "webpack --mode=production",
+    "build": "rm -rf ./dist/* && webpack --mode=production",
     "dev": "webpack --watch",
     "release": "standard-version",
     "prepublish": "npm run build"
@@ -24,8 +24,6 @@
     "react": ">16.0.0"
   },
   "devDependencies": {
-    "@commitlint/cli": "^8.1.0",
-    "@commitlint/config-conventional": "^8.1.0",
     "@babel/core": "^7.5.5",
     "@babel/preset-env": "^7.5.5",
     "@babel/preset-react": "^7.0.0",
@@ -39,6 +37,8 @@
     "eslint": "^6.3.0",
     "eslint-plugin-prettier": "^3.1.0",
     "eslint-plugin-react": "^7.5.1",
+    "eslint-plugin-react-hooks": "^2.0.1",
+    "eslint-plugin-react-perf": "^3.2.1",
     "husky": "^3.0.5",
     "lodash": "^4.17.15",
     "marked": "^0.7.0",

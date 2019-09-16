@@ -13,9 +13,9 @@ module.exports = {
   devtool: 'inline-source-map',
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: name + '.js',
+    filename: 'index.js',
     library: name,
-    libraryTarget: 'umd',
+    libraryTarget: 'commonjs',
   },
   externals: {
     react: 'commonjs react',
