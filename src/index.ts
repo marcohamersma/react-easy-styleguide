@@ -134,6 +134,11 @@ export function init(context, props: InitProps = styleguideProps) {
   if (props.routerLink) linkSetRouter(props.routerLink)
 }
 
+/**
+ * Prepares react-easy-styleguide. Runs the `init` feature, and returns a
+ * Layout component that can be rendered. Pass a `routerLink` prop to use a
+ * react-router instance for navigating
+ */
 export function create(context, props: InitProps): unknown {
   init(context, props)
   return props.routerLink ? RouterLayout : Layout
