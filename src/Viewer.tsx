@@ -118,3 +118,5 @@ export const Viewer = (props: ComponentToShow) => {
     </div>
   )
 }
+
+Viewer.displayName = 'Viewer'
