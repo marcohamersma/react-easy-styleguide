@@ -109,6 +109,7 @@ export const Viewer = (props: ComponentToShow) => {
 
       {variations!.map(v => (
         <Variation
+          key={component.slug + ' - ' + v.slug}
           variation={v}
           component={component}
           hideMeta={!!selectedVariation || singlePane}
