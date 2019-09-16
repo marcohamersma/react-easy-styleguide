@@ -2,7 +2,7 @@ import path from 'path'
 import marked from 'marked'
 import isPlainObject from 'lodash/isPlainObject'
 import slug from 'slug'
-import { Layout } from './Layout'
+import { Layout, RouterLayout } from './Layout'
 import { ColorList as ColorListComponent } from './ColorList'
 import { TypeList as TypeListComponent } from './TypeList'
 import { Viewer } from './Viewer'
@@ -24,8 +24,8 @@ interface InitProps {
   /** Title shown in the UI */
   name: string
   /**
-   * Passing either `ReactRouter.Link` or `ReactRouter.NavLink` will use those
-   * for navigating between components
+   * Passing `ReactRouter.NavLink` will use those React Router for navigating
+   * between components
    */
   routerLink?: any
   /**
@@ -134,9 +134,9 @@ export function init(context, props: InitProps = styleguideProps) {
   if (props.routerLink) linkSetRouter(props.routerLink)
 }
 
-export function create(context, props) {
+export function create(context, props: InitProps): unknown {
   init(context, props)
-  return Layout
+  return props.routerLink ? RouterLayout : Layout
 }
 
 interface ComponentRegisterProps {
