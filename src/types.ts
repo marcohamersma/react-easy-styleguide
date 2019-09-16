@@ -1,6 +1,6 @@
 export interface WrapperElementProps {
   /** The Component class that should be rendered for this variation */
-  Component: React.ComponentClass | React.FunctionComponent
+  Component: React.ComponentType
   /**
    * The props that should be passed to the Component in order to properly
    * display this variation
@@ -8,16 +8,10 @@ export interface WrapperElementProps {
   componentProps: ComponentProps
 }
 
-export type WrapperElementFactory = (
-  props: WrapperElementProps,
-) => React.ReactElement
-
-export type WrapperProp =
-  | React.ReactElement<WrapperElementProps>
-  | WrapperElementFactory
+export type WrapperProp = React.ElementType<WrapperElementProps>
 
 export interface ComponentDefinition {
-  Component: React.ReactElement<WrapperElementProps>
+  Component: React.ComponentType
   Wrapper?: WrapperProp
   name: string
   propTypes: Partial<React.ReactPropTypes>
@@ -32,7 +26,7 @@ export interface ComponentProps {
 }
 
 /** The settings for this particular variation of the component */
-export interface VariationDefinition {
+export interface VariationDefinition<P = React.ComponentType> {
   name: string
   description?: string
   props?: ComponentProps

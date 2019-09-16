@@ -141,21 +141,21 @@ export function create(context, props) {
 
 interface ComponentRegisterProps {
   name?: string
-  Component: React.ReactElement
-  propTypesComponent?: React.ReactElement
-  component?: React.ReactElement
+  Component: React.ComponentType
+  propTypesComponent?: React.ComponentType
+  component?: React.ComponentType
 }
 
 /** Registers a component for use in the styleguide */
-export function register(
+export function register<C = React.ComponentType>(
   /** The React Class to add to the styleguide, or an object defining it */
-  componentProps: React.ReactElement | ComponentRegisterProps,
+  componentProps: React.ComponentType | ComponentRegisterProps,
   /** Description to show on this component's page */
   readme: string | null | undefined,
   /**
    * An array of different variations of this component and each of their props
    */
-  variations?: VariationDefinition[],
+  variations?: VariationDefinition<C>[],
   /**
    * Default props for each variation (will be merged with each variation's
    * props)
