@@ -1,6 +1,15 @@
 {
-  "main.css": "static/css/main.7a6d463f.css",
-  "main.css.map": "static/css/main.7a6d463f.css.map",
-  "main.js": "static/js/main.a0bb82fb.js",
-  "main.js.map": "static/js/main.a0bb82fb.js.map"
+  "files": {
+    "main.css": "/react-easy-styleguide/static/css/main.8e9a3152.chunk.css",
+    "main.js": "/react-easy-styleguide/static/js/main.1e7c849c.chunk.js",
+    "main.js.map": "/react-easy-styleguide/static/js/main.1e7c849c.chunk.js.map",
+    "runtime-main.js": "/react-easy-styleguide/static/js/runtime-main.e0f0a8a1.js",
+    "runtime-main.js.map": "/react-easy-styleguide/static/js/runtime-main.e0f0a8a1.js.map",
+    "static/js/2.24d776b8.chunk.js": "/react-easy-styleguide/static/js/2.24d776b8.chunk.js",
+    "static/js/2.24d776b8.chunk.js.map": "/react-easy-styleguide/static/js/2.24d776b8.chunk.js.map",
+    "index.html": "/react-easy-styleguide/index.html",
+    "precache-manifest.c8287f7ed84813dffacd9e18e4010bef.js": "/react-easy-styleguide/precache-manifest.c8287f7ed84813dffacd9e18e4010bef.js",
+    "service-worker.js": "/react-easy-styleguide/service-worker.js",
+    "static/css/main.8e9a3152.chunk.css.map": "/react-easy-styleguide/static/css/main.8e9a3152.chunk.css.map"
+  }
 }
