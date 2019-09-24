@@ -15,6 +15,10 @@ import {
   WrapperProp,
 } from './types'
 
+marked.setOptions({
+  breaks: true,
+})
+
 export { Layout }
 export { Viewer }
 
@@ -146,23 +150,27 @@ export function create(context, props: InitProps): any {
   return props.routerLink ? RouterLayout : Layout
 }
 
+// I tried React.ComponentType, but that doesn't work for some function
+// components
+type ComponentType = any
+
 interface ComponentRegisterProps {
   name?: string
-  Component: React.ComponentType
-  propTypesComponent?: React.ComponentType
-  component?: React.ComponentType
+  Component: ComponentType
+  propTypesComponent?: ComponentType
+  component?: ComponentType
 }
 
 /** Registers a component for use in the styleguide */
-export function register<C = React.ComponentType>(
-  /** The React Class to add to the styleguide, or an object defining it */
-  componentProps: React.ComponentType | ComponentRegisterProps,
+export function register(
+  /** The React Component to add to the styleguide, or an object defining it */
+  componentProps: any,
   /** Description to show on this component's page */
   readme: string | null | undefined,
   /**
    * An array of different variations of this component and each of their props
    */
-  variations?: VariationDefinition<C>[],
+  variations?: VariationDefinition[],
   /**
    * Default props for each variation (will be merged with each variation's
    * props)
