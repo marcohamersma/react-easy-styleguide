@@ -26,7 +26,7 @@ Each component in the styleguide has a companion `.info.js` file, which defines 
 
 ## Requirements
 
-The module relies on Webpack's `require.context`, and therefore it needs webpack. I think that should be the only required thing, but let me know in the Issues if there's a problem.
+The module relies on Webpack's `require.context`, and therefore it needs webpack. I think that should be the only required thing, but let me know in the Issues if there's a problem. If you use TypeScript, probably will have to install the `@types/webpack-env` package.
 
 ## Installation
 
@@ -199,7 +199,11 @@ Although `*.info` files in the component folder should be picked up automaticall
 
 ```js
 require('./design.info.js')
-const styleguideContext = require.context('./components/', true, /.info.js$/)
+const styleguideContext = require.context(
+  './components/',
+  true,
+  /.info.(j|t)sx?$/,
+)
 ```
 
 ### Higher Order Components / Redux
