@@ -139,7 +139,9 @@ export function init(context, props: InitProps = styleguideProps) {
  * Layout component that can be rendered. Pass a `routerLink` prop to use a
  * react-router instance for navigating
  */
-export function create(context, props: InitProps): unknown {
+export function create(context, props: InitProps): any {
+  // Somehow, I have to export this as `any`, because the default (or unknown)
+  // causes issues with react-router
   init(context, props)
   return props.routerLink ? RouterLayout : Layout
 }
