@@ -31,7 +31,7 @@
     "eslint": "^4.19.1",
     "lodash.isplainobject": "^4.0.6",
     "lodash.map": "^4.6.0",
-    "marked": "^0.3.6",
+    "marked": "^4.0.10",
     "node-sass": "^4.5.0",
     "prop-types": "^15.6.1",
     "react-bem-helper": "^1.2.0",
