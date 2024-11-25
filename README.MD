@@ -75,7 +75,7 @@ const Styleguide = createStyleGuide(styleguideContext, {
 // after passing the RouterLink prop, the component will
 // adjust to react-router's URL parameters
 <Route
-  path="/styleguide/:component?/:variation?"
+  path="/styleguide/:component*"
   component={Styleguide}
 />
 ```

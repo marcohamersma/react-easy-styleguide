@@ -5,18 +5,17 @@ import './styles/styles.scss'
 import Navigation from './Navigation'
 import { Viewer } from './Viewer'
 import PropTypes from 'prop-types'
-import { ComponentToShow } from './types'
+import { ReactRouterProps } from './types'
 
 const BEMClassName = new bemHelper('styleGuide')
 
-export const Layout = (props: ComponentToShow) => {
+export const Layout = ({ path }: { path: string }) => {
   const components = styleGuide.list()
-  const { variation, component } = props as ComponentToShow
   const name = styleGuide.getName()
 
   return (
     <div {...BEMClassName()}>
-      <Navigation components={components} name={name} current={component} />
+      <Navigation components={components} name={name} path={path} />
       <div {...BEMClassName('contents')}>
         {!components.length ? (
           <div {...BEMClassName('panel')}>
@@ -24,21 +23,15 @@ export const Layout = (props: ComponentToShow) => {
             files
           </div>
         ) : (
-          <Viewer component={component} variation={variation} />
+          <Viewer path={path} />
         )}
       </div>
     </div>
   )
 }
 
-interface ReactRouterProps {
-  match: {
-    params: ComponentToShow
-  }
-}
-
 export const RouterLayout = (props: ReactRouterProps) => (
-  <Layout {...props.match.params} />
+  <Layout path={props.match.params.component} />
 )
 
 Layout.propTypes = {

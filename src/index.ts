@@ -6,13 +6,16 @@ import { Layout, RouterLayout } from './Layout'
 import { ColorList as ColorListComponent } from './ColorList'
 import { TypeList as TypeListComponent } from './TypeList'
 import { Viewer } from './Viewer'
+import { SingleViewer } from './SingleViewer'
 import { setRouter as linkSetRouter } from './NavigationLink'
+import { nanoid } from 'nanoid/non-secure'
 import {
   ComponentDefinition,
   VariationInfo,
   ComponentProps,
   VariationDefinition,
   WrapperProp,
+  ComponentGroup,
 } from './types'
 
 marked.setOptions({
@@ -21,8 +24,22 @@ marked.setOptions({
 
 export { Layout }
 export { Viewer }
+export { SingleViewer }
 
-const components: ComponentDefinition[] = []
+const components: Array<ComponentDefinition | ComponentGroup> = []
+interface IndexedComponentItem {
+  parent?: ComponentDefinition
+  component: ComponentDefinition
+  variation: VariationInfo
+}
+const indexedComponents: Record<
+  string,
+  {
+    parent?: ComponentDefinition
+    component: ComponentDefinition
+    variation: VariationInfo
+  }
+> = {}
 
 interface InitProps {
   /** Title shown in the UI */
@@ -42,6 +59,7 @@ interface InitProps {
    * `/styleguide/`
    */
   path?: string
+  group?: string
 }
 
 let styleguideProps: InitProps = {
@@ -84,10 +102,11 @@ function getVariations(
   variations?: VariationDefinition[],
   defaultProps?: ComponentProps | null,
 ): VariationInfo[] {
-  return (typeof variations !== 'undefined' && variations.length > 0
-    ? variations
-    : defaultVariations
-  ).map(v =>
+  return (
+    typeof variations !== 'undefined' && variations.length > 0
+      ? variations
+      : defaultVariations
+  ).map((v) =>
     Object.assign({}, v, {
       props: Object.assign({}, defaultProps || {}, v.props),
       description: marked(v.description || ''),
@@ -161,10 +180,15 @@ interface ComponentRegisterProps {
   component?: ComponentType
 }
 
+const componentGroupsRegister: Record<
+  string,
+  Array<ComponentDefinition | ComponentGroup>
+> = {}
+
 /** Registers a component for use in the styleguide */
 export function register(
   /** The React Component to add to the styleguide, or an object defining it */
-  componentProps: any,
+  componentProps: ComponentType | ComponentRegisterProps,
   /** Description to show on this component's page */
   readme: string | null | undefined,
   /**
@@ -184,12 +208,14 @@ export function register(
    */
   Wrapper?: WrapperProp,
 ) {
-  const component = (isPlainObject(componentProps)
-    ? componentProps
-    : {
-        Component: componentProps,
-        propTypesComponent: componentProps,
-      }) as ComponentRegisterProps
+  const component = (
+    isPlainObject(componentProps)
+      ? componentProps
+      : {
+          Component: componentProps,
+          propTypesComponent: componentProps,
+        }
+  ) as ComponentRegisterProps
 
   // Handle some common user errors
   component.propTypesComponent =
@@ -204,20 +230,60 @@ export function register(
     componentNameWarning(component.name)
   }
 
-  components.push({
-    name: component.name!,
-    slug: slug(component.name),
+  const componentName = component.name || `Unnamed (${nanoid(4)})`
+  const groups = componentName.split('/')
+  const slugToUse = componentName
+    .split('/')
+    .map((i) => slug(i))
+    .join('/')
+
+  const variationsToUse = getVariations(variations, defaultProps)
+
+  const componentToAdd: ComponentDefinition = {
+    name: componentName,
+    slug: slugToUse,
     readme: marked(readme || ''),
     propTypes: matchPropTypes(realComponent),
-    variations: getVariations(variations, defaultProps),
+    variations: variationsToUse,
     singlePane: (!!component.Component as any).noStyleGuideVariations,
     Component: component.Component,
     Wrapper,
+  }
+
+  variationsToUse.forEach((v) => {
+    const variationSlug = slugToUse + `/${slug(v.slug)}`
+    if (indexedComponents[variationSlug])
+      throw new Error('component already exists')
+    v.slug = variationSlug
+    indexedComponents[variationSlug] = {
+      component: componentToAdd,
+      variation: v,
+    }
   })
+
+  if (groups.length > 1) {
+    componentToAdd.name = groups.pop()!
+
+    // TODO: handle double-nested items
+    groups.forEach((group) => {
+      if (!componentGroupsRegister[group]) {
+        componentGroupsRegister[group] = [componentToAdd]
+        components.push({
+          slug: slug(group),
+          name: group,
+          children: componentGroupsRegister[group],
+        })
+      } else {
+        componentGroupsRegister[group].push(componentToAdd)
+      }
+    })
+  } else {
+    components.push(componentToAdd)
+  }
 }
 
-export const action = message =>
-  function(...args) {
+export const action = (message) =>
+  function (...args) {
     console.log('[ACTION]', message, args)
   }
 
@@ -226,15 +292,17 @@ export function list() {
   return components
 }
 
-export function get(componentSlug: string, variation: string) {
-  const component = components.find(c => c.slug === componentSlug)
-  if (!component) return {}
+export function get(path: string) {
+  const match = indexedComponents[path]
+  if (!match) return {}
 
-  const variations = variation
-    ? [component.variations.find(v => v.slug === variation)!]
-    : component.variations
+  return { component: match.component, variations: [match.variation] }
 
-  return { component, variations }
+  // const variations = variation
+  //   ? [component.variations.find((v) => v.slug === variation)!]
+  //   : component.variations
+
+  // return { component, variations }
 }
 
 export function getName() {

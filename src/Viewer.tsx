@@ -4,7 +4,6 @@ import { get } from './index'
 import { Variation } from './Variation'
 
 import bemHelper from 'react-bem-helper'
-import { ComponentToShow } from './types'
 const BEMClassName = new bemHelper('styleGuideViewer')
 
 function stringifyProp(prop) {
@@ -54,13 +53,15 @@ const PropTypeRow = (propType, propName, selectedVariation) => {
   )
 }
 
-export const Viewer = (props: ComponentToShow) => {
-  if (!props.component) return EmptyState()
-  const { component, variations } = get(props.component, props.variation)
+export const Viewer = (props: { path: string }) => {
+  if (!props.path) return EmptyState()
+
+  const { component, variations } = get(props.path)
   if (!component) return NotFound()
 
   const { singlePane } = component
-  const selectedVariation = props.variation && variations![0]
+  const selectedVariation = variations![0]
+  // const selectedVariation = props.variation && variations![0]
 
   const description =
     selectedVariation && selectedVariation.description
@@ -107,12 +108,13 @@ export const Viewer = (props: ComponentToShow) => {
         </div>
       ) : null}
 
-      {variations!.map(v => (
+      {variations!.map((v) => (
         <Variation
           key={component.slug + ' - ' + v.slug}
           variation={v}
           component={component}
           hideMeta={!!selectedVariation || singlePane}
+          iframe={v.isolate}
         />
       ))}
     </div>
