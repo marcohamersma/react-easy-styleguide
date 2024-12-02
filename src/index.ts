@@ -289,7 +289,9 @@ export const action = (message) =>
 
 export function list() {
   displayComponentWarnings()
-  return components
+  return components.sort((a, b) => {
+    return a.name.localeCompare(b.name)
+  })
 }
 
 export function get(path: string) {
