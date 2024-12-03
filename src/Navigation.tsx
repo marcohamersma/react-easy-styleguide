@@ -98,6 +98,7 @@ type TopLevelItems = Array<ComponentDefinition>
 
 const Navigation = ({ components, name, path }: NavigationProps) => {
   const topLevel: TopLevelItems = []
+  console.log(components)
 
   // components.forEach(c => {
   //   if (c.group) {

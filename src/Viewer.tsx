@@ -114,7 +114,6 @@ export const Viewer = (props: { path: string }) => {
           variation={v}
           component={component}
           hideMeta={!!selectedVariation || singlePane}
-          iframe={v.isolate}
         />
       ))}
     </div>

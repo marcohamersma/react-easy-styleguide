@@ -6,7 +6,7 @@ import { Layout, RouterLayout } from './Layout'
 import { ColorList as ColorListComponent } from './ColorList'
 import { TypeList as TypeListComponent } from './TypeList'
 import { Viewer } from './Viewer'
-import { SingleViewer } from './SingleViewer'
+// import { SingleViewer } from './SingleViewer'
 import { setRouter as linkSetRouter } from './NavigationLink'
 import { nanoid } from 'nanoid/non-secure'
 import {
@@ -25,7 +25,7 @@ marked.setOptions({
 
 export { Layout }
 export { Viewer }
-export { SingleViewer }
+// export { SingleViewer }
 
 const components: Array<ComponentDefinition | ComponentGroup> = []
 interface IndexedComponentItem {
