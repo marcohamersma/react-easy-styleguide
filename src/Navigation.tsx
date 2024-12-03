@@ -7,11 +7,10 @@ const BEMClassName = new bemHelper('styleGuideNav')
 
 const Variations = (variations, parentSlug?: string) => {
   // if (variations.length < 2) return null
-  // TODO: navigate to the first chld!
   return (
     <ul {...BEMClassName('variationsList')}>
       {variations.map((v) => {
-        let to = [parentSlug, v.slug].join('/')
+        let to = v.slug
         if (v.variations) {
           to = v.variations[0].slug
         }
@@ -72,7 +71,7 @@ const ListItem: React.FC<{
         <Link
           to={
             variations && variations.length === 1
-              ? url([slug, variations[0].slug].join('/'))
+              ? url(variations[0].slug)
               : url(slug)
           }
           activeClassName="sg-active"

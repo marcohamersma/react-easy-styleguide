@@ -21,6 +21,11 @@ export interface ComponentDefinition {
   variations: VariationInfo[]
 }
 
+export interface ComponentGroup {
+  name: string
+  slug: string
+  children: Array<ComponentDefinition | ComponentGroup>
+}
 export interface ComponentProps {
   [propName: string]: unknown
 }
@@ -30,6 +35,12 @@ export interface VariationDefinition<P = React.ComponentType> {
   name: string
   description?: string
   props?: ComponentProps
+  Component?: P
+  /**
+   * Should this variation be put into an `iframe`. This is useful for
+   * layouts, modals, and other components that might use absolute positioning.
+   */
+  isolate?: boolean
 }
 export interface VariationInfo extends VariationDefinition {
   slug: string
@@ -39,4 +50,18 @@ export interface VariationInfo extends VariationDefinition {
 export interface ComponentToShow {
   variation: string
   component: string
+}
+
+export interface ReactRouterProps {
+  location: {
+    key: string
+    pathname: string
+    search: string
+    hash: string
+    state: Record<string, any>
+  }
+
+  match: {
+    params: ComponentToShow
+  }
 }

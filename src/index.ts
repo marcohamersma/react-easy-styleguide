@@ -17,6 +17,7 @@ import {
   WrapperProp,
   ComponentGroup,
 } from './types'
+export { VariationDefinition }
 
 marked.setOptions({
   breaks: true,
@@ -116,6 +117,7 @@ function getVariations(
 }
 
 function matchPropTypes(component) {
+  if (!component) return {}
   const userPropTypes = component.propTypes
   const defaultProps = component.getDefaultProps
     ? component.getDefaultProps()
@@ -153,7 +155,7 @@ function matchPropTypes(component) {
 export function init(context, props: InitProps = styleguideProps) {
   Object.assign(styleguideProps, props)
 
-  context.keys().forEach(context)
+  if (context) context.keys().forEach(context)
   if (props.routerLink) linkSetRouter(props.routerLink)
 }
 
@@ -222,11 +224,13 @@ export function register(
     component.propTypesComponent || component.Component
   component.Component = component.Component || component.component
 
-  const realComponent = component.propTypesComponent as any
+  const realComponent = component.propTypesComponent as
+    | Record<string, string | undefined>
+    | undefined
   component.name =
-    component.name || realComponent.displayName || realComponent.name
+    component.name || realComponent?.displayName || realComponent?.name
 
-  if (component.name === realComponent.name) {
+  if (component.name === realComponent?.name) {
     componentNameWarning(component.name)
   }
 
