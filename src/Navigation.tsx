@@ -39,10 +39,10 @@ const isComponentGroup = (
 
 const ListItem: React.FC<{
   component: ComponentDefinition | ComponentGroup
-  currentItem: string
+  currentItem: string | undefined
 }> = (props) => {
   const { slug, name } = props.component
-  const isCurrentItem = props.currentItem.split('/')[0] === slug
+  const isCurrentItem = props.currentItem?.split('/')[0] === slug
   const [isExpanded, setIsExpanded] = React.useState(isCurrentItem)
   const shouldShowVariations = isCurrentItem || isExpanded
 
