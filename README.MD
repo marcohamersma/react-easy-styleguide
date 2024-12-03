@@ -1,5 +1,8 @@
-# react-easy-styleguide ([demo](https://marcohamersma.github.io/react-easy-styleguide))
-[![npm version](https://badge.fury.io/js/react-easy-styleguide.svg)](http://badge.fury.io/js/react-easy-styleguide)
+# react-easy-styleguide
+
+**This tool is basically unmaintained, and is only updated sporadically for compatibility reasons. Please use alternatives such as Storybook**
+
+----
 
 This is a tool to easily get a styleguide integrated into your project. It works great with `create-react-app`.
 
