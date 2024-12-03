@@ -7,7 +7,7 @@ const NotFound = () => (
   </div>
 )
 
-const wrappedComponent = component => childProps => (
+const wrappedComponent = (component) => (childProps) => (
   <component.Wrapper
     Component={component.Component}
     componentProps={childProps}
@@ -79,6 +79,20 @@ export class Variation extends React.PureComponent<Props, State> {
                 Check the developer console for more information.
               </strong>
             </div>,
+          )
+        ) : variation.Component ? (
+          React.createElement(
+            component.Wrapper ? (
+              <component.Wrapper
+                Component={variation.Component}
+                componentProps={variation.props}
+              >
+                {<variation.Component />}
+              </component.Wrapper>
+            ) : (
+              (variation.Component as any)
+            ),
+            props,
           )
         ) : this.props.hideMeta ? (
           <Component {...props} />
