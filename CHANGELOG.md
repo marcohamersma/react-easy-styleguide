@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.1.0-1](https://github.com/marcohamersma/react-easy-styleguide/compare/v3.1.0-0...v3.1.0-1) (2024-12-03)
+
+
+### Bug Fixes
+
+* defend against missing 'currentItem' prop ([44e11e2](https://github.com/marcohamersma/react-easy-styleguide/commit/44e11e2953bd8832ebc491442c1ed129b292bb76))
+
 ## [3.1.0-0](https://github.com/marcohamersma/react-easy-styleguide/compare/v2.0.1...v3.1.0-0) (2024-12-03)
 
 
